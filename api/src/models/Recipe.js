@@ -16,11 +16,11 @@ module.exports = (sequelize) => {
     },
 
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1500),
       allowNull: false,
     },
     health_score: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
     },
 
     stepByStep: {
