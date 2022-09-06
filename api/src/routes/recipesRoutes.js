@@ -1,6 +1,21 @@
 const express = require('express');
+const {getAllRecipes, getDietsRecipes, getInfoRecipe, getNamedRecipe}= require('../utils/routesFunctions')
 
+const router = express.Router()
+module.exports = router
 
+router.get('/',(res,res)=>{
+    try {
+        const {name}=req.query
+        if(name){
+        const recepies= getNamedRecipe(name)
+    }
+    } catch (error) {
+        //Puedo ver de enviar imagen not found
+        res.status(404).send()
+    }
+    
+})
 
 /*
 [ ] GET /recipes?name="...":
