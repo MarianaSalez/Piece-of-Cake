@@ -87,6 +87,7 @@ async function getAllRecipes() {
 }
 
 async function getNamedRecipe(name) {
+    console.log('entre a funcion named recipe')
     const infoLanding= getAllRecipes()
     if (infoLanding) return infoLanding.filter(e=>e.name.includes(name))}
 
@@ -94,8 +95,9 @@ async function getDietsRecipes(diet) {
     const infoLanding= getAllRecipes()
     if (infoLanding) return infoLanding.filter((e)=>e.diet.includes(diet))}
 
- async function getInfoRecipe() {
-        const recipe = await fetch(`https://api.spoonacular.com/recipes/{id}/information?apiKey=${API_KEY_RECIPE}&addRecipeInformation=true`)
+ async function getInfoRecipe(id) {
+    console.log('entre a funcion detalle')
+        const recipe = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE}&addRecipeInformation=true`)
         if(recipe.data) return {
                 name:recipe.title,
                 img: recipe.image,

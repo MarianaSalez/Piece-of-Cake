@@ -1,20 +1,66 @@
 const express = require('express');
-const {getAllRecipes, getDietsRecipes, getInfoRecipe, getNamedRecipe}= require('../utils/routesFunctions')
+const { getInfoRecipe, getNamedRecipe}= require('../utils/routesFunctions')
+const {Recipe} =require('../models/Recipe')
 
 const router = express.Router()
-module.exports = router
 
-router.get('/',(res,res)=>{
+router.get('/',async (req,res)=>{
     try {
         const {name}=req.query
         if(name){
-        const recepies= getNamedRecipe(name)
+        const apirecepies=await getNamedRecipe(name)
+        const dbRecipes=await Recipe.findAll({
+            where:{
+                name: {
+                    [Op.like]: `%${name}%`
+                }
+            }
+        }  
+        )
+        const findedRecepies=apirecepies.concat(dbRecipes)
+        if(findedRecepies.length!==0) return  res.status(200).json(findedRecepies)
+        else return res.status(401).send('Disculpe, no encontramos coincidencia. Pruebe con otra receta')
     }
     } catch (error) {
         //Puedo ver de enviar imagen not found
-        res.status(404).send()
+        res.status(404).send("Disculpe las molestias, algo salio mal en su consulta")
     }
     
+})
+
+.get('/recipes/:idReceta', async(req, res)=>{
+    try{
+        let {id} =req.params
+        const recipeApiDetail= await getInfoRecipe(id)
+        const recipeDbDetail= await Recipe.findByPk(id)
+        console.log('entre aca')
+        if (recipeApiDetail)  { 
+            console.log('tambien entre aca')
+            return  res.status(201).json(recipeApiDetail)}
+        else if(recipeDbDetail) return  res.status(201).json(recipeDbDetail)
+        else return res.status(404).send('Disculpe, no encontramos mas informacion de esta receta')
+    }
+    catch(e){
+        console.log('genere error')
+        res.status(404).send("Disculpe las molestias, algo salio mal")
+    }
+
+
+})
+
+
+.post('/recipes', async(req, res)=>{
+    //!!!!ESTO HAY QUE CAMBIARLO PORQUE VIENE DEL FRONT, NO POR BODY!!
+    try {
+        const { name, summary, healthScore, steps, diets, image } = req.body;
+        const newRecipe= await Recipe.create({
+        name, summary, healthScore, steps, image
+    })
+    //Me falta conectar con la tabla de dietas
+    res.status(201).send(`Receta ${newRecipe.name} creada correctamente`)
+    } catch (error) {
+        res.status(404).send("Disculpe las molestias, algo salio mal, intente cargar la receta nuevamente")
+    }
 })
 
 /*
@@ -43,3 +89,4 @@ https://spoonacular.com/food-api/docs#Get-Recipe-Information
 
 GET https://api.spoonacular.com/recipes/{id}/information
 */
+module.exports = router

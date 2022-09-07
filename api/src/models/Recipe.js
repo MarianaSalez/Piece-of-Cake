@@ -15,17 +15,25 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
 
-    description: {
+    summary: {
       type: DataTypes.STRING(1500),
       allowNull: false,
     },
-    health_score: {
+
+    healthScore: {
       type: DataTypes.FLOAT,
     },
 
-    stepByStep: {
+    steps: {
       type: DataTypes.STRING,
     },
+
+    image:{
+      type: DataTypes.STRING,
+      validate:{
+      isUrl: true
+      }
+    }
 
 
 
