@@ -1,17 +1,22 @@
+require("dotenv").config();
 const {API_KEY_ALL, API_KEY_RECIPE} = process.env;
+const axios = require("axios");
+const {Recipe, Diet} =require('../db')
 
+//Busqueda de todas las recetas y recetas por nombre
 
-async function getAllRecipes() {
-    const recepies = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL}&addRecipeInformation=true&number=100`)
-    const infoLanding= recepies.data? recepies.map(elem=>{
+const getAllRecipes=async function() {
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL}&addRecipeInformation=true&number=100`)
+   if (recepies.data.results) {
+    const infoLanding=recepies.data.results.map(elem=>{
         return {
             name:elem.title,
             img: elem.image,
             dietas:elem.diets,
             healthy:elem.healthScore,
             liked:elem.aggregateLikes
-        }}):null
-        return infoLanding
+        }})
+    return infoLanding}
     /*Me trae:
     {"results":
     [
@@ -87,13 +92,14 @@ async function getAllRecipes() {
 }
 
 async function getNamedRecipe(name) {
-    console.log('entre a funcion named recipe')
-    const infoLanding= getAllRecipes()
-    if (infoLanding) return infoLanding.filter(e=>e.name.includes(name))}
+    const infoLanding= await getAllRecipes()
+    const apinameRecipe=infoLanding.filter(e=>e.name.includes(name))
+    const dbNameRecipes=await Recipe.findAll({where:{name: {[Op.like]: `%${name}%`}}})
+    apinameRecipe.concat(dbNameRecipes)
 
-async function getDietsRecipes(diet) {
-    const infoLanding= getAllRecipes()
-    if (infoLanding) return infoLanding.filter((e)=>e.diet.includes(diet))}
+    }
+
+//Busqueda info detail
 
  async function getInfoRecipe(id) {
     console.log('entre a funcion detalle')
@@ -114,78 +120,25 @@ async function getDietsRecipes(diet) {
                 
             }}
 
-/*
-BRINGS THE DETAIL FETCH
 
-{"vegetarian":false,
-"vegan":false,
-"glutenFree":false,
-"dairyFree":true,
-"veryHealthy":false,
-"cheap":false,
-"veryPopular":false,
-"sustainable":false,
-"lowFodmap":false,
-"weightWatcherSmartPoints":11,
-"gaps":"no",
-"preparationMinutes":-1,
-"cookingMinutes":-1,
-"aggregateLikes":0,
-"healthScore":5,
-"creditsText":"SippitySup",
-"sourceName":"SippitySup",
-"pricePerServing":150.5,
-"extendedIngredients":
-[{"id":15001,
-"aisle":"Seafood",
-"image":"anchovies.jpg",
-"consistency":"SOLID",
-"name":"anchovies",
-"nameClean":"boquerones",
-"original":"1 lb whole fresh, or cleaned and marinated anchovies (not the salted or tinned variety)",
-"originalName":"whole fresh, or cleaned and marinated anchovies (not the salted or tinned variety)",
-"amount":1.0,
-"unit":"lb",
-"meta":["fresh","salted","whole","tinned","cleaned","(not the or variety)"],
-"measures":{"us":{"amount":1.0,"unitShort":"lb","unitLong":"pound"},
-"metric":{"amount":453.592,"unitShort":"g","unitLong":"grams"}}},
-{"id":2031,"aisle":"Spices and Seasonings","image":"chili-powder.jpg","consistency":"SOLID","name":"cayenne pepper","nameClean":"ground cayenne pepper","original":"0.25 t cayenne pepper","originalName":"cayenne pepper","amount":0.25,"unit":"t","meta":[],"measures":{"us":{"amount":0.25,"unitShort":"tsps","unitLong":"teaspoons"},"metric":{"amount":0.25,"unitShort":"tsps","unitLong":"teaspoons"}}},
-{"id":10311529,"aisle":"Produce","image":"cherry-tomatoes.png","consistency":"SOLID","name":"cherry tomatoes","nameClean":"cherry tomato","original":"0 cherry tomatoes, as needed","originalName":"cherry tomatoes, as needed","amount":0.0,"unit":"","meta":["as needed"],"measures":{"us":{"amount":0.0,"unitShort":"","unitLong":""},"metric":{"amount":0.0,"unitShort":"","unitLong":""}}},
-{"id":10018029,"aisle":"Bakery/Bread","image":"crusty-bread.jpg","consistency":"SOLID","name":"crusty bread","nameClean":"crusty bread","original":"0 crusty bread","originalName":"crusty bread","amount":0.0,"unit":"","meta":[],"measures":{"us":{"amount":0.0,"unitShort":"","unitLong":""},"metric":{"amount":0.0,"unitShort":"","unitLong":""}}},
-{"id":1123,"aisle":"Milk, Eggs, Other Dairy","image":"egg.png","consistency":"SOLID","name":"eggs","nameClean":"egg","original":"3 large eggs","originalName":"eggs","amount":3.0,"unit":"large","meta":[],"measures":{"us":{"amount":3.0,"unitShort":"large","unitLong":"larges"},"metric":{"amount":3.0,"unitShort":"large","unitLong":"larges"}}},
-{"id":1034053,"aisle":"Oil, Vinegar, Salad Dressing","image":"olive-oil.jpg","consistency":"LIQUID","name":"extra virgin olive oil","nameClean":"extra virgin olive oil","original":"0 extra virgin olive oil, for dipping bread, optional","originalName":"extra virgin olive oil, for dipping bread, optional","amount":0.0,"unit":"","meta":["for dipping bread, optional"],"measures":{"us":{"amount":0.0,"unitShort":"","unitLong":""},"metric":{"amount":0.0,"unitShort":"","unitLong":""}}},
-{"id":20081,"aisle":"Baking","image":"flour.png","consistency":"SOLID","name":"flour","nameClean":"wheat flour","original":"1.5 c flour","originalName":"flour","amount":1.5,"unit":"c","meta":[],"measures":{"us":{"amount":1.5,"unitShort":"cups","unitLong":"cups"},"metric":{"amount":354.882,"unitShort":"ml","unitLong":"milliliters"}}},{"id":4053,"aisle":"Oil, Vinegar, Salad Dressing","image":"olive-oil.jpg","consistency":"LIQUID","name":"olive oil","nameClean":"olive oil","original":"2 c olive oil","originalName":"olive oil","amount":2.0,"unit":"c","meta":[],"measures":{"us":{"amount":2.0,"unitShort":"cups","unitLong":"cups"},"metric":{"amount":473.176,"unitShort":"ml","unitLong":"milliliters"}}},{"id":1102047,"aisle":"Spices and Seasonings","image":"salt-and-pepper.jpg","consistency":"SOLID","name":"salt and pepper","nameClean":"salt and pepper","original":"0 salt and black pepper to taste","originalName":"salt and black pepper to taste","amount":0.0,"unit":"","meta":["black","to taste"],"measures":{"us":{"amount":0.0,"unitShort":"","unitLong":""},"metric":{"amount":0.0,"unitShort":"","unitLong":""}}}],
-"id":6,
-"title":"Fried Anchovies",
-"readyInMinutes":15,
-"servings":15,
-"sourceUrl":"http://www.sippitysup.com/fried-anchovies",
-"image":"https://spoonacular.com/recipeImages/6-556x370.jpg",
-"imageType":"jpg",
-"summary":"Fried Anchovies requires around <b>15 minutes</b> from start to finish. This recipe serves 15. One portion of this dish contains approximately <b>9g of protein</b>, <b>31g of fat</b>, and a total of <b>352 calories</b>. For <b>$1.49 per serving</b>, this recipe <b>covers 8%</b> of your daily requirements of vitamins and minerals. This recipe is liked by 1 foodies and cooks. It is a good option if you're following a <b>dairy free and pescatarian</b> diet. Head to the store and pick up crusty bread, cayenne pepper, flour, and a few other things to make it today. It is brought to you by SippitySup. Overall, this recipe earns a <b>good spoonacular score of 42%</b>. Similar recipes include <a href=\"https://spoonacular.com/recipes/fried-anchovies-253335\">Fried Anchovies</a>, <a href=\"https://spoonacular.com/recipes/fried-sage-with-anchovies-493285\">Fried Sage With Anchovies</a>, and <a href=\"https://spoonacular.com/recipes/fried-anchovies-with-sage-1\">Fried Anchovies with Sage</a>.",
-"cuisines":[],
-"dishTypes":["antipasti","starter","snack","appetizer","antipasto","hor d'oeuvre"],
-"diets":["dairy free","pescatarian"],
-"occasions":[],
-"winePairing":{},
-"instructions":"If you are using whole, fresh anchovies you must clean them first. Pull off the heads and pull out the insides. Then rinse with clean water.Pour the olive oil into a small deep saucepan set over heat. Use a deep fry thermometer to monitor the heat.Meanwhile, add the eggs to a small bowl and beat until well mixed. Add the flour, cayenne, salt and black pepper to a shallow bowl, use a fork to mix the ingredients together. Dip the fish one at a time into the beaten eggs and then roll it in flour.When the oil reaches 365 degrees F. fry the fish a few at a time, rolling them around in the oil to assure even cooking until they are golden brown (about 5-8 minutes). Serve with crusty bread, extra-virgin olive oil for dipping the bread (optional) and tomatoes.",
-"analyzedInstructions":
-[{"name":"",
-"steps":[
-    {"number":1,"step":"If you are using whole, fresh anchovies you must clean them first. Pull off the heads and pull out the insides. Then rinse with clean water.","ingredients":[{"id":15001,"name":"fresh anchovies","localizedName":"fresh anchovies","image":"fresh-anchovies.jpg"},{"id":14412,"name":"water","localizedName":"water","image":"water.png"}],"equipment":[]},
-    {"number":2,"step":"Pour the olive oil into a small deep saucepan set over heat. Use a deep fry thermometer to monitor the heat.Meanwhile, add the eggs to a small bowl and beat until well mixed.","ingredients":[{"id":4053,"name":"olive oil","localizedName":"olive oil","image":"olive-oil.jpg"},{"id":1123,"name":"egg","localizedName":"egg","image":"egg.png"}],"equipment":[{"id":404789,"name":"kitchen thermometer","localizedName":"kitchen thermometer","image":"food-thermometer.jpg"},{"id":404669,"name":"sauce pan","localizedName":"sauce pan","image":"sauce-pan.jpg"},{"id":404783,"name":"bowl","localizedName":"bowl","image":"bowl.jpg"}]},
-    {"number":3,"step":"Add the flour, cayenne, salt and black pepper to a shallow bowl, use a fork to mix the ingredients together. Dip the fish one at a time into the beaten eggs and then roll it in flour.When the oil reaches 365 degrees F. fry the fish a few at a time, rolling them around in the oil to assure even cooking until they are golden brown (about 5-8 minutes).","ingredients":[{"id":1102047,"name":"salt and pepper","localizedName":"salt and pepper","image":"salt-and-pepper.jpg"},{"id":2031,"name":"ground cayenne pepper","localizedName":"ground cayenne pepper","image":"chili-powder.jpg"},{"id":20081,"name":"all purpose flour","localizedName":"all purpose flour","image":"flour.png"},{"id":1123,"name":"egg","localizedName":"egg","image":"egg.png"},{"id":10115261,"name":"fish","localizedName":"fish","image":"fish-fillet.jpg"},{"id":0,"name":"roll","localizedName":"roll","image":"dinner-yeast-rolls.jpg"},{"id":0,"name":"dip","localizedName":"dip","image":""},{"id":4582,"name":"cooking oil","localizedName":"cooking oil","image":"vegetable-oil.jpg"}],"equipment":[{"id":404783,"name":"bowl","localizedName":"bowl","image":"bowl.jpg"}],"length":{"number":8,"unit":"minutes"}},
-    {"number":4,"step":"Serve with crusty bread, extra-virgin olive oil for dipping the bread (optional) and tomatoes.","ingredients":[{"id":1034053,"name":"extra virgin olive oil","localizedName":"extra virgin olive oil","image":"olive-oil.jpg"},{"id":10018029,"name":"crusty bread","localizedName":"crusty bread","image":"crusty-bread.jpg"},{"id":11529,"name":"tomato","localizedName":"tomato","image":"tomato.png"},{"id":18064,"name":"bread","localizedName":"bread","image":"white-bread.jpg"}],"equipment":[]}]}],
-    "originalId":null}
+//Busqueda de todas las dietas y dietas por nombre
 
-*/
+async function getDiets() {
+    const infoLanding= await getAllRecipes()
+    const repetDiets= infoLanding.map(e=>e.repetDiets).flat()
+    const dietsApi = [...new Set(repetDiets)]
+    const dietsDb= await Diet.findAll()
+    return dietsApi.concat(dietsDb)
+    }
 
-async function getApiDiets() {
-    const infoLanding= getAllRecipes()
-    if (infoLanding) {
-        const repetDiets= infoLanding.map(e=>e.repetDiets).flat()
-        const diets = [...new Set(repetDiets)]
-        return diets
-    } }
+async function getRecipesDiet(diet){
+    const infoLanding= await getAllRecipes()
+    const apiDietRecipes=infoLanding.filter(e=>e.diets.includes(diet))
+    const dbRecipesWithDiets= await Recipe.findAll({include:diet})
+    const dbDietRecipes=dbRecipesWithDiets.filter(e=>e.diets.includes(diet))
+    return apiDietRecipes.concat(dbDietRecipes)
+}
 
-module.exports={getAllRecipes, getApiDiets, getDietsRecipes, getInfoRecipe, getNamedRecipe}
+
+
+module.exports={getAllRecipes, getRecipesDiet, getDiets, getInfoRecipe, getNamedRecipe}

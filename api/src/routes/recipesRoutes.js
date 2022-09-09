@@ -1,34 +1,41 @@
 const express = require('express');
-const { getInfoRecipe, getNamedRecipe}= require('../utils/routesFunctions')
-const {Recipe} =require('../models/Recipe')
+const { getInfoRecipe, getNamedRecipe, getAllRecipes, getDiets,getRecipesDiet}= require('../utils/routesFunctions')
+const {Recipe, Diet} =require('../db')
+const { Op } = require("sequelize");
+const db = require('../db');
 
 const router = express.Router()
 
 router.get('/',async (req,res)=>{
     try {
-        const {name}=req.query
-        if(name){
-        const apirecepies=await getNamedRecipe(name)
-        const dbRecipes=await Recipe.findAll({
-            where:{
-                name: {
-                    [Op.like]: `%${name}%`
-                }
+       const {name}=req.query
+    if(name){
+
+        const diets= await getDiets()
+        if(diets.includes(name)){
+            const recipesByDiet=getRecipesDiet(diets)
+            res.json(recipesByDiet)
             }
-        }  
-        )
-        const findedRecepies=apirecepies.concat(dbRecipes)
-        if(findedRecepies.length!==0) return  res.status(200).json(findedRecepies)
-        else return res.status(401).send('Disculpe, no encontramos coincidencia. Pruebe con otra receta')
-    }
+        else{
+            const apirecepies=await getNamedRecipe(name)
+            if (apirecepies.length!==0) return  res.status(200).json(apirecepies)
+            else{
+            res.status(201).send('Disculpe, no encontramos coincidencia. Pruebe con otra receta')
+            }}
+        }
+    else{
+        const apirecepies=await getAllRecipes()
+        if (apirecepies) return res.json(apirecepies)
+        }
     } catch (error) {
         //Puedo ver de enviar imagen not found
+        console.log(error)
         res.status(404).send("Disculpe las molestias, algo salio mal en su consulta")
     }
     
 })
 
-.get('/recipes/:idReceta', async(req, res)=>{
+.get('/:idReceta', async(req, res)=>{
     try{
         let {id} =req.params
         const recipeApiDetail= await getInfoRecipe(id)
@@ -49,7 +56,7 @@ router.get('/',async (req,res)=>{
 })
 
 
-.post('/recipes', async(req, res)=>{
+.post('/createRecipes', async(req, res)=>{
     //!!!!ESTO HAY QUE CAMBIARLO PORQUE VIENE DEL FRONT, NO POR BODY!!
     try {
         const { name, summary, healthScore, steps, diets, image } = req.body;
