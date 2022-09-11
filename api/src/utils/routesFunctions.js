@@ -30,7 +30,6 @@ async function getNamedRecipe(name) {
 //Busqueda info detail
 
  async function getInfoRecipe(id) {
-    console.log('entre a funcion detalle')
     if(Number(id)){
         const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE}&addRecipeInformation=true`)
         console.log(recipe.data)
@@ -90,4 +89,5 @@ async function getRecipesDiet(diet){
 
 
 module.exports={getAllRecipes, getRecipesDiet, getDiets, getInfoRecipe, getNamedRecipe}
+
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const { getInfoRecipe, getNamedRecipe, getAllRecipes, getDiets,getRecipesDiet}= require('../utils/routesFunctions')
-const {Recipe} =require('../db')
+const {Recipe,Diet} =require('../db')
 
 const db = require('../db');
 
@@ -23,49 +23,63 @@ router.get('/',async (req,res)=>{
             }}
         }
     else{
-        console.log('traje todo')
         const apirecepies=await getAllRecipes()
         if (apirecepies) return res.json(apirecepies)
         }
     } catch (error) {
         //Puedo ver de enviar imagen not found
         console.log(error)
-        res.status(404).send("Disculpe las molestias, algo salio mal en su consulta")
+        res.status(404).send(e)
     }
     
 })
+
+.get('/random',async (req,res)=>{
+    try{
+        const id =Math.floor(Math.random() *100)
+        const recipeApiDetail= await getInfoRecipe(id)
+        return  res.status(201).json(recipeApiDetail)}
+    catch(e){
+        res.status(404).send(e)
+    }
+
+} )
 
 .get('/:idReceta', async(req, res)=>{
     try{
         const {idReceta} =req.params
         const recipeApiDetail= await getInfoRecipe(idReceta)
-        if (recipeApiDetail)  { 
-            console.log('entre aca')
-            return  res.status(201).json(recipeApiDetail)}
+        if (recipeApiDetail)  {return  res.status(201).json(recipeApiDetail)}
         else return res.status(404).send('Disculpe, no encontramos mas informacion de esta receta')
     }
     catch(e){
         console.log(e)
-        res.status(404).send("Disculpe las molestias, algo salio mal")
+        res.status(404).send(e)
     }
 
 
 })
 
 
-.post('/createRecipes', async(req, res)=>{
-    //!!!!ESTO capaz HAY QUE CAMBIARLO PORQUE VIENE DEL FRONT, NO POR BODY!!
+.post('/createRecipe', async(req, res)=>{
     try {
         const { name, summary, healthScore, steps, diets, image } = req.body;
         const newRecipe= await Recipe.create({
         name, summary, healthScore, steps, image
     })
-    //Me falta conectar con la tabla de dietas
+    diets.forEach(async (elem) => {
+        const dbDiet= await Diet.findOrCreate({
+            where: { name: elem }
+        })
+        newRecipe.setDiet(dbDiet)
+        })
     res.status(201).send(`Receta ${newRecipe.name} creada correctamente`)
     } catch (error) {
         res.status(404).send("Disculpe las molestias, algo salio mal, intente cargar la receta nuevamente")
     }
 })
+
+
 
 /*
 
