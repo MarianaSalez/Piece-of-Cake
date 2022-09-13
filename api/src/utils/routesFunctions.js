@@ -12,10 +12,12 @@ const getAllRecipes=async function() {
     const infoLanding=recepies.data.results.map(elem=>{
         return {
             name:elem.title,
-            img: elem.image,
-            dietas:elem.diets,
-            healthy:elem.healthScore,
-            liked:elem.aggregateLikes
+            summary:elem.summary,
+            score:elem.aggregateLikes,
+            healthScore:elem.healthScore,
+            image: elem.image,
+            diets:elem.diets,
+            
         }})
     return infoLanding}
 }
@@ -36,10 +38,9 @@ async function getNamedRecipe(name) {
         if(recipe.data) {
             const detail= {
                 name:recipe.data.title,
-                img: recipe.data.image,
-                dietas:recipe.data.diets,
-                healthy:recipe.data.healthScore,
-                description: recipe.data.summary,
+                summary: recipe.data.summary,
+                score:recipe.data.aggregateLikes,
+                healthScore:recipe.data.healthScore,
                 ingredients: recipe.data.extendedIngredients?.map((e)=>{return{
                     img:e.image,
                     name:e.name,
@@ -49,7 +50,9 @@ async function getNamedRecipe(name) {
                 steps:recipe.data.analyzedInstructions[0]?.steps.map((e)=>{return {
                     number:e.number,
                     step: e.step
-                }})
+                }}),
+                image: recipe.data.image,
+                diets:recipe.data.diets,
             }
             return detail
         }}
@@ -74,7 +77,7 @@ async function getDiets() {
 
 async function getRecipesDiet(diet){
     const infoLanding= await getAllRecipes()
-    const apiDietRecipes=infoLanding.filter(e=>e.dietas.filter(d=>d===diet))
+    const apiDietRecipes=infoLanding.filter(e=>e.diets.filter(d=>d===diet))
 
     //Revisar base de datos
     const dbRecipesWithDiets= await Recipe.findAll({include:{ model: Diet,

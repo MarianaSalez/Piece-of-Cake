@@ -3,6 +3,7 @@ const { getInfoRecipe, getNamedRecipe, getAllRecipes, getDiets,getRecipesDiet}= 
 const {Recipe,Diet} =require('../db')
 
 const db = require('../db');
+const e = require('express');
 
 const router = express.Router()
 
@@ -61,31 +62,30 @@ router.get('/',async (req,res)=>{
 })
 
 
-.post('/createRecipe', async(req, res)=>{
+.post('/create', async(req, res)=>{
     try {
-        const { name, summary, healthScore, steps, diets, image } = req.body;
+        const { name, summary, score, healthScore, steps, image, diets} = req.body;
+        if(!name || !summary){res.status(401).send("Falta informacion principal para cargar la receta")}
         const newRecipe= await Recipe.create({
-        name, summary, healthScore, steps, image
-    })
-    diets.forEach(async (elem) => {
-        const dbDiet= await Diet.findOrCreate({
-            where: { name: elem }
+        name, summary,score,  healthScore, steps, image
         })
-        newRecipe.setDiet(dbDiet)
-        })
+        diets.forEach(async (d) => {
+            const dbDiet = await Diet.findOrCreate({
+              where: {
+                name: d,
+              },
+            });
+            newRecipe.setDiets(dbDiet);
+          });
+    
+        // const proms = Array.from(diets).map(diet => newRecipe.addDiet( {where: { name: diet }}));
+        // await Promise.all(proms)
+        
     res.status(201).send(`Receta ${newRecipe.name} creada correctamente`)
     } catch (error) {
-        res.status(404).send("Disculpe las molestias, algo salio mal, intente cargar la receta nuevamente")
+        console.log(error)
+        res.status(404).send(error)
     }
 })
 
-
-
-/*
-
-[ ] POST /recipes:
-Recibe los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body
-Crea una receta en la base de datos relacionada con sus tipos de dietas.
-
-*/
 module.exports = router
