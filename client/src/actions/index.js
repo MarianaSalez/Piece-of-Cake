@@ -30,7 +30,7 @@ export function searchByName(name){
 
 export function searchByDiet(name){
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/recipes?name="+name);
+        let json = await axios.get("http://localhost:3001/recipes?diet="+name);
         return dispatch({ type: SEARCH_BY_DIET, payload: json.data });
       };
 

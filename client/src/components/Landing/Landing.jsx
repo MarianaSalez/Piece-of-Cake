@@ -21,7 +21,7 @@ export default function Landing() {
       </Link>
       <div>
         {diets.map((d)=> 
-          <Link key={d} to= {`/recipes?name=${d}`}>
+          <Link key={d} to= {`/recipes?diet=${d}`}>
           <button onClick={()=>dispatch(changeLoagind())} >{d}</button>
           </Link>)}
       </div>

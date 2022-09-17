@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function RecipeCard() {
+export default function RecipeCard(title) {
   return (
-    <div>RecipeCard</div>
+    <div>{title}</div>
   )
 }
