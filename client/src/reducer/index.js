@@ -41,7 +41,7 @@ const rootReducer = (state = initialState, action) => {
         return {...state, recipes:action.payload, loading:false}
 
       case GET_DIETS:
-        return {...state, diets:action.payload, loading:false}
+        return {...state, diets:action.payload}
       
       case CHANGE_LOADING:
         return {...state, loading:(!state.loading)}

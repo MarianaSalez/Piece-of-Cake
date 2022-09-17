@@ -1,5 +1,6 @@
 import React from 'react';
 import './nav.css';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import DietList from '../DietList/DietList';
@@ -7,6 +8,7 @@ import DietList from '../DietList/DietList';
 
 export default function Nav() {
     //const [state, setState]=useState({})
+    const dispatch = useDispatch()
   return (
     <>
     
