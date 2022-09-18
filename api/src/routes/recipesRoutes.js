@@ -9,14 +9,8 @@ const router = express.Router()
 
 router.get('/',async (req,res)=>{
     try {
-       let {name,diet}=req.query
-    if(diet){
-        let diets= await getDiets()
-        if(diets.find(e=>e.includes(diet.split('/\s/').join('').toLowerCase()))){
-            const recipesByDiet=await getRecipesDiet(diet)
-            res.json(recipesByDiet)
-            }}
-     else if(name){
+       let {name}=req.query
+    if(name){
             const apirecepies=await getNamedRecipe(name)
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
             else{

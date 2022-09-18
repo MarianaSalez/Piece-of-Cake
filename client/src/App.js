@@ -2,8 +2,8 @@ import './App.css';
 import { useSelector } from 'react-redux'
 import Landing from './components/Landing/Landing';
 import Nav from './components/NavBar/Nav';
- import Home from './components/Home/Home';
-// import Detail from './components/Detail/Detail';
+import Home from './components/Home/Home';
+import Detail from './components/Detail/Detail';
 // import CreateRecipe from './components/CreateRecipe/CreateRecipe';
 // import DietList from './components/DietList/DietList';
 import Footer from './components/Footer/Footer';
@@ -30,6 +30,7 @@ function App() {
     <Nav/>
     <Routes>
       <Route path="/recipes" element={<Home/>}/>
+      <Route path="/recipes/:idReceta"element={<Detail/>}/>
     </Routes> 
     <Footer/>
     </BrowserRouter>
@@ -42,7 +43,7 @@ function App() {
     
     /* 
 <>
-        <Route path="/recipes/:idReceta"><Detail/></Route>
+        
         <Route path="/recipes/create"><CreateRecipe/></Route>
         <Route path="/diets"><DietList/></Route>
         <Route path="/about"><About/></Route>

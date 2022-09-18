@@ -1,17 +1,12 @@
 import React from 'react'
 import './Landing.css';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {getDiets,changeLoagind} from '../../actions';
-import { useEffect } from 'react'
+import { useDispatch} from 'react-redux';
+import {changeLoagind} from '../../actions';
+
 
 export default function Landing() {
   const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(getDiets())
-  },[dispatch])
-  
-  const diets=useSelector(state=>state.diets)
   
   return (
     <div className='container'>
@@ -19,12 +14,6 @@ export default function Landing() {
       <Link to='/recipes'>
       <button onClick={()=>dispatch(changeLoagind())}>Don't Know, show me all</button>
       </Link>
-      <div>
-        {diets.map((d)=> 
-          <Link key={d} to= {`/recipes?diet=${d}`}>
-          <button onClick={()=>dispatch(changeLoagind())} >{d}</button>
-          </Link>)}
-      </div>
       </div>
   )
 }
