@@ -31,7 +31,8 @@ router.get('/',async (req,res)=>{
 
 .get('/random',async (req,res)=>{
     try{
-        const id =Math.floor(Math.random() *100)
+        const id =Math.floor(Math.random() *10)
+        //CAMBIAR A 100
         const recipeApiDetail= await getInfoRecipe(id)
         return  res.status(201).json(recipeApiDetail)}
     catch(e){

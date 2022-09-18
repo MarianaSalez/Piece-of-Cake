@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import RecipeCard from './RecipeCard/RecipeCard';
 import {getAllRecipes} from '../../actions';
 import { useEffect } from 'react'
+import './Home.css';
 
 export default function Home() {
   const dispatch=useDispatch()

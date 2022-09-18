@@ -14,10 +14,10 @@ const rootReducer = (state = initialState, action) => {
   switch(action.type) {
       // Acá va tu código:
       case GET_ALL_RECIPES:
-        return {...state, recipes:action.payload, loading:false}
+        return {...state, recipes:action.payload}
       
       case SEARCH_BY_NAME:
-        return {...state, recipe:action.payload, loading:false}
+        return {...state, recipes:action.payload, loading:false}
       
       case SEARCH_BY_DIET:
         return {...state, recipes:action.payload, loading:false}
@@ -26,7 +26,7 @@ const rootReducer = (state = initialState, action) => {
         return {...state, recipe:action.payload, loading:false}
 
       case GET_DETAIL:
-        return {...state, recipe:action.payload, loading:false}
+        return {...state, recipe:action.payload}
         
       case CREATE_RECIPE:
         return {...state, recipes: [...state.recipes, action.payload], loading:false}

@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import DietList from '../DietList/DietList';
-//import {FaSearchLocation} from 'react-icons/fa'
+import {changeLoagind} from '../../actions';
+// import {FaSearchLocation} from 'react-icons/fa'
 
 export default function Nav() {
     //const [state, setState]=useState({})
@@ -12,10 +13,10 @@ export default function Nav() {
   return (
     <>
     
-    <Link to='/'><img onClick={() => dispatch({ type: 'CHANGE_LOADING' })} src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663372772/PI-FOOD/logo_food_api_ytyqfh.jpg' alt='Logo'/></Link>
+    <Link to='/'><img onClick={()=>dispatch(changeLoagind())} src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663372772/PI-FOOD/logo_food_api_ytyqfh.jpg' alt='Logo'/></Link>
     <h1>"Anyone can cook" <span>Gusteau</span></h1>
-    <SearchBar />
-   
+    <SearchBar  />
+    {/* icon={<FaSearchLocation/>} */}
     
     <div id='filters'>
         <button> Clear Filters</button>
@@ -32,7 +33,7 @@ export default function Nav() {
             <DietList/>
         </div>
     </div>
-    <Link to='/recipe/random'>
+    <Link to='/recipes/random'>
         <button>Random</button>
     </Link>
     <Link to='/recipes/create'>

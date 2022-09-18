@@ -1,7 +1,9 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
-import {getDetail} from '../../../actions';
+import { getDetail } from '../../../actions';
+import './RecipeCard.css';
+
 
 export default function RecipeCard(recipe) {
   const dispatch=useDispatch()

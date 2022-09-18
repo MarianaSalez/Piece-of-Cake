@@ -38,7 +38,9 @@ export function searchByDiet(name){
 
 export function getRandom(){
     return async function (dispatch) {
+        console.log('entre en funcion getRandom')
         let json = await axios.get("http://localhost:3001/recipes/random");
+        console.log(json)
         return dispatch({ type: GET_RANDOM, payload: json.data });
       };
 }

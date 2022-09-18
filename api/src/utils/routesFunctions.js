@@ -35,7 +35,6 @@ async function getNamedRecipe(name) {
  async function getInfoRecipe(id) {
     if(Number(id)){
         const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE}&addRecipeInformation=true`)
-        console.log(recipe.data)
         if(recipe.data) {
             const detail= {
                 name:recipe.data.title,
