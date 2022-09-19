@@ -10,9 +10,9 @@ export default function Landing() {
   
   return (
     <div className='container'>
-      <h1>What are you in a mood for?</h1> 
+      <h1 className='title'>What are you in a mood for?</h1> 
       <Link to='/recipes'>
-      <button onClick={()=>dispatch(changeLoagind())}>Don't Know, show me all</button>
+      <button className='landignButton' onClick={()=>dispatch(changeLoagind())}>Don't Know, show me all</button>
       </Link>
       </div>
   )

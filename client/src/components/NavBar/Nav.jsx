@@ -11,13 +11,14 @@ export default function Nav() {
     //const [state, setState]=useState({})
     const dispatch = useDispatch()
   return (
-    <>
-    
-    <Link to='/'><img onClick={()=>dispatch(changeLoagind())} src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663372772/PI-FOOD/logo_food_api_ytyqfh.jpg' alt='Logo'/></Link>
-    <h1>"Anyone can cook" <span>Gusteau</span></h1>
-    <SearchBar  />
-    {/* icon={<FaSearchLocation/>} */}
-    
+    <div className='navRoot' >
+    <div className='row'>
+        <Link to='/'><img className='logo' onClick={()=>dispatch(changeLoagind())} src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625895/PI-FOOD/logo_food_api_brgjuw.png' alt='Logo'/></Link>
+        <h1 className='frase'>"Anyone can cook" <span className='firma'>Gusteau</span></h1>
+        <SearchBar  />
+    </div>
+
+    <div className='row'>
     <div id='filters'>
         <button> Clear Filters</button>
 
@@ -40,7 +41,13 @@ export default function Nav() {
         <button>Add New</button>
     </Link>
     
-    </>
+
+    </div>
+    
+    {/* icon={<FaSearchLocation/>} */}
+    
+   
+    </div>
    
     
   )
