@@ -1,0 +1,15 @@
+.back{
+    background-image:url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625355/PI-FOOD/Background-min_dpneso.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+.home{
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
+    filter: none;
+
+}

@@ -10,13 +10,21 @@ const router = express.Router()
 router.get('/',async (req,res)=>{
     try {
        let {name}=req.query
+       let{diet}=req.query
     if(name){
             const apirecepies=await getNamedRecipe(name)
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
             else{
             res.status(201).send('Disculpe, no encontramos coincidencia. Pruebe con otra receta')
             }}
-        
+    else if(diet){
+        const apirecepies=await getRecipesDiet(diet)
+            if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
+            else{
+            res.status(201).send('Disculpe, no encontramos coincidencia.')
+            }
+
+    }
     else{
         const apirecepies=await getAllRecipes()
         if (apirecepies) return res.json(apirecepies)
@@ -62,7 +70,7 @@ router.get('/',async (req,res)=>{
         const { name, summary, score, healthScore, steps, image, diets} = req.body;
         if(!name || !summary){res.status(401).send("Falta informacion principal para cargar la receta")}
         const newRecipe= await Recipe.create({
-        name, summary,score,  healthScore, steps, image
+        name, summary,score, healthScore, steps, image
         })
         diets.forEach(async (d) => {
             const dbDiet = await Diet.findOrCreate({

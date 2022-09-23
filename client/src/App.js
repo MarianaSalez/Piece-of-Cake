@@ -8,7 +8,7 @@ import Detail from './components/Detail/Detail';
 // import DietList from './components/DietList/DietList';
 import Footer from './components/Footer/Footer';
 import About from './components/About/About';
-// import RandomRecipe from './components/RandomRecipe/RandomRecipe';
+import RandomRecipe from './components/RandomRecipe/RandomRecipe';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
@@ -26,14 +26,14 @@ function App() {
     :
     <>
     
-    <BrowserRouter>
+    <BrowserRouter >
     <Nav/>
     <Routes>
+      
       <Route path="/recipes" element={<Home/>}/>
-      {/* <Route path="/recipes/random"element={<RandomRecipe/>}/> */}
+      <Route path="/recipes/random"element={<RandomRecipe/>}/> 
       <Route path="/recipes/:id"element={<Detail/>}/>
       <Route path="/about"element={<About/>}/>
-      
     </Routes> 
     <Footer/>
     </BrowserRouter>

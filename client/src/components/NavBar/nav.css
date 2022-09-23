@@ -2,13 +2,16 @@
     display: flex;
     flex-direction: column;
     margin:0%;
-    background-color: #6b5b46;
+    background-image: url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625355/PI-FOOD/Background-min_dpneso.jpg);
+    background-size: cover;
+    height: 12vw;
 }
 
 .frase{
     margin: 0%;
     display: flex;
     width: fit-content;
+    
 }
 
 .firma{
@@ -17,6 +20,8 @@
 }
 .logo{
     width: 15vw;
+    border-radius: 50%;
+    
 }
 .row{
     display: flex;

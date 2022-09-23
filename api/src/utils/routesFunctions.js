@@ -4,6 +4,7 @@ const axios = require("axios");
 const {Recipe, Diet} =require('../db')
 const { Op } = require("sequelize");
 
+
 //Busqueda de todas las recetas y recetas por nombre
 
 const getAllRecipes=async function() {
@@ -20,6 +21,7 @@ const getAllRecipes=async function() {
             diets:elem.diets,
             
         }})
+    
     return infoLanding}
 }
 

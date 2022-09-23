@@ -1,0 +1,11 @@
+.row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    background-image: url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625355/PI-FOOD/Background-min_dpneso.jpg);
+    background-position: bottom ;
+    margin: 0%;
+    margin-top: -20px;
+    color: aliceblue;
+}

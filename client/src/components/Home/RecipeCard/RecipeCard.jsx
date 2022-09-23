@@ -8,7 +8,7 @@ import './RecipeCard.css';
 export default function RecipeCard(recipe) {
   const dispatch=useDispatch()
   return (
-    <>
+    <div className='card'>
     <div key={recipe.key}>{recipe.name}</div>
     <img src={recipe.image} alt=' '/>
     <ul>
@@ -21,6 +21,6 @@ export default function RecipeCard(recipe) {
     </Link>
     
   
-    </>
+    </div>
   )
 }

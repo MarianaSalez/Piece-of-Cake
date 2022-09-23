@@ -4,7 +4,7 @@ import './Footer.css';
 
 export default function Footer() {
   return (
-    <>
+    <div className='row'>
      <div>
       <Link to='/about'>
       <h3>About Us</h3>
@@ -20,6 +20,6 @@ export default function Footer() {
     </div>
     </div>
  
-    </> )
+    </div> )
    
 }

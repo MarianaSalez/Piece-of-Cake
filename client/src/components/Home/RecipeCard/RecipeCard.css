@@ -1,0 +1,8 @@
+.card{
+    filter: blur(0);
+    backdrop-filter: blur(15px);
+    height: 400px;
+    text-align: center;
+    border: solid aliceblue;
+
+}
