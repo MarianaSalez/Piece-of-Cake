@@ -5,9 +5,8 @@ export const SEARCH_BY_DIET = "SEARCH_BY_DIET";
 export const GET_RANDOM = "GET_RANDOM";
 export const GET_DETAIL = "GET_DETAIL";
 export const CREATE_RECIPE = "CREATE_RECIPE";
-export const SORT_BY_NAME = "SORT_BY_NAME";
-export const SORT_BY_HEALTH = "SORT_BY_HEALTH";
-export const GET_POPULAR = "GET_POPULAR";
+export const SORT = "SORT";
+export const CLEAN_FILTER = "CLEAN_FILTER";
 export const GET_DIETS = "GET_DIETS";
 export const CHANGE_LOADING = "CHANGE_LOADING";
 
@@ -194,14 +193,13 @@ export function createRecipe(data){
       };
 }
 
-export const sortByName = (payload) => {
-    return{type:SORT_BY_NAME, payload}}
+export const sort = (payload) => {
+    return{type:SORT, payload}}
 
-export const sortByHealth = (payload) => {
-    return{type:SORT_BY_HEALTH, payload}}
+export const cleanFilter = () => {
+    return{type:CLEAN_FILTER}}
 
-export const getPopular = (payload) => {
-    return{type:GET_POPULAR, payload}}
+
 
 export function getDiets(){
     return async function (dispatch) {

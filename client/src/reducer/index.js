@@ -1,6 +1,6 @@
 
 // Importa las actions types que necesites acá:
-import {GET_ALL_RECIPES, SEARCH_BY_NAME, SEARCH_BY_DIET, GET_RANDOM, GET_DETAIL, CREATE_RECIPE, SORT_BY_NAME, SORT_BY_HEALTH, GET_POPULAR, GET_DIETS,CHANGE_LOADING} from "../actions";
+import {GET_ALL_RECIPES, SEARCH_BY_NAME, SEARCH_BY_DIET, GET_RANDOM, GET_DETAIL, CREATE_RECIPE, SORT, GET_DIETS,CHANGE_LOADING, CLEAN_FILTER} from "../actions";
 
 
 const initialState = {
@@ -21,7 +21,7 @@ const rootReducer = (state = initialState, action) => {
         return {...state, recipes:action.payload, loading:false}
       
       case SEARCH_BY_DIET:
-        return {...state, recipes:action.payload, loading:false}
+        return {...state, filtered:action.payload, loading:false}
       
       case GET_RANDOM:
         return {...state, recipe:action.payload, loading:false}
@@ -32,11 +32,22 @@ const rootReducer = (state = initialState, action) => {
       case CREATE_RECIPE:
         return {...state, recipes: [...state.recipes, action.payload], loading:false}
      
-      case SORT_BY_NAME:
+      case CLEAN_FILTER:
+        return {...state, filtered:[], loading:false}
+      
+      
+        case SORT:
       const sorted =  state.recipes
-      console.log(action.payload)
 
-      if (sorted.length!==0&&action.payload === "asc") {
+      if (sorted.length!==0){
+        if(action.payload === "ascHealth"){
+          sorted.sort((a,b) =>a.healthScore- b.healthScore)
+        }
+        if(action.payload === "ascRate"){
+          sorted.sort((a,b) =>a.score- b.score)
+        }
+
+        if(action.payload === "asc") {
         sorted.sort((a,b) =>{
           const nameA = a.name; 
           const nameB = b.name; 
@@ -47,10 +58,8 @@ const rootReducer = (state = initialState, action) => {
             return 1;
           }
           return 0
-        })
-        
-      }
-      if(sorted.length!==0&&action.payload === "des"){
+        })}
+      if(action.payload === "des"){
         sorted.sort((a,b) =>{
           const nameA = a.name; 
           const nameB = b.name; 
@@ -63,15 +72,9 @@ const rootReducer = (state = initialState, action) => {
           return 0
         })
       }
-      console.log(sorted)
+    }
       return {...state, recipes:sorted, loading:false}
       
-
-      case SORT_BY_HEALTH:
-        return {...state, recipes:action.payload, loading:false}
-
-      case GET_POPULAR:
-        return {...state, recipes:action.payload, loading:false}
 
       case GET_DIETS:
         return {...state, diets:action.payload}
