@@ -15,13 +15,14 @@ router.get('/',async (req,res)=>{
             const apirecepies=await getNamedRecipe(name)
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
             else{
-            res.status(201).send('Disculpe, no encontramos coincidencia. Pruebe con otra receta')
+            res.status(401).send('Disculpe, no encontramos coincidencia. Pruebe con otra receta')
             }}
     else if(diet){
         const apirecepies=await getRecipesDiet(diet)
+        console.log(apirecepies)
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
             else{
-            res.status(201).send('Disculpe, no encontramos coincidencia.')
+            res.status(401).send('Disculpe, no encontramos coincidencia.')
             }
 
     }

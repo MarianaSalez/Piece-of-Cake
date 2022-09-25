@@ -1,13 +1,31 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './SearchBar.css';
-// import { useDispatch } from 'react-redux'
-// import { search } from '../../../../api/src/routes/recipesRoutes';
+import { useDispatch } from 'react-redux'
+import {searchByName} from '../../actions';
 
 export default function SearchBar() {
+
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+
+
+  function handleChange(e) {
+    e.preventDefault();
+    setName(e.target.value);
+    console.log(name)
+  }
+
+  function handleButton(e) {
+    console.log('lo envie')
+    e.preventDefault();
+    dispatch(searchByName(name))
+  }
+
+
 return(
   <div>
-   <input className='search_input' type='text' id='inputRec' placeholder='Recipe...'/>
-  <button type='submit' >Find</button>
+   <input className='search_input' type='text' id='inputRec' placeholder='Recipe...' onChange={(e) => handleChange(e)}/>
+  <button type='submit'   onClick={(e) => handleButton(e)}>Find</button>
   </div>)
   
   

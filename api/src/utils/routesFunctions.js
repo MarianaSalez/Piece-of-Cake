@@ -27,7 +27,7 @@ const getAllRecipes=async function() {
 
 async function getNamedRecipe(name) {
     const infoLanding= await getAllRecipes()
-    const apinameRecipe=infoLanding.filter(e=>e.name.includes(name))
+    const apinameRecipe=infoLanding.filter(e=>e.name. toLowerCase().includes(name.toLowerCase()))
     const dbNameRecipes=await Recipe.findAll({where:{name: {[Op.like]: `%${name}%`}}})
     return apinameRecipe.concat(dbNameRecipes)
     }
@@ -74,13 +74,15 @@ async function getDiets() {
     const repetDiets=recepies.data.results.map(elem=>elem.diets).flat()
     const dietsApi = [...new Set(repetDiets)]
     const dietsDb= await Diet.findAll()
+    console.log(dietsApi)
     return dietsApi.concat(dietsDb)
+
     }}
 
 async function getRecipesDiet(diet){
     const infoLanding= await getAllRecipes()
-    const apiDietRecipes=infoLanding.filter(e=>e.diets.filter(d=>d===diet))
-
+    const apiDietRecipes=infoLanding.filter((e)=>e.diets.includes(diet)
+        )
     //Revisar base de datos
     const dbRecipesWithDiets= await Recipe.findAll({include:{ model: Diet,
       attibutes: ["name"],

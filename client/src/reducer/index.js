@@ -9,6 +9,7 @@ const initialState = {
   recipes: [],
   filtered:[],
   diets: [],
+  notFound:false
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,9 +19,11 @@ const rootReducer = (state = initialState, action) => {
         return {...state, recipes:action.payload}
       
       case SEARCH_BY_NAME:
-        return {...state, recipes:action.payload, loading:false}
+        if (typeof(action.payload)==='string') return{...state, notFound:true}
+        else return {...state, filtered:action.payload, loading:false}
       
       case SEARCH_BY_DIET:
+        console.log(action.payload)
         return {...state, filtered:action.payload, loading:false}
       
       case GET_RANDOM:
@@ -33,7 +36,7 @@ const rootReducer = (state = initialState, action) => {
         return {...state, recipes: [...state.recipes, action.payload], loading:false}
      
       case CLEAN_FILTER:
-        return {...state, filtered:[], loading:false}
+        return {...state, filtered:[], loading:false, notFound:false}
       
       
         case SORT:

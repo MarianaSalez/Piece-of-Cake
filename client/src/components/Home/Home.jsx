@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import RecipeCard from './RecipeCard/RecipeCard';
-import {getAllRecipes,getDiets,sort,searchByDiet} from '../../actions';
+import {getAllRecipes,getDiets,sort,searchByDiet, cleanFilter} from '../../actions';
 import { useEffect } from 'react'
 import './Home.css';
 import { useState } from 'react';
@@ -20,6 +20,7 @@ export default function Home() {
   const recipes= useSelector(state=>state.recipes)
   const filtered= useSelector(state=>state.filtered)
   const diets= useSelector(state=>state.diets)
+  // const notFound= useSelector(state=>state.notFound)
 
   //ACTUALIZACION DE PAGINA
   useEffect(()=>{
@@ -50,6 +51,10 @@ function handleOnSelect(e) {
   e.preventDefault()
   var value = [e.target.value]
   dispatch(searchByDiet(value))
+  console.log(`se quizo filtrar por ${value}`)
+  setCurrentRecipes((filtered.length!==0)?filtered.slice(INITIAL_PAGE*LIMIT,LIMIT+1):
+                                          recipes.slice(INITIAL_PAGE*LIMIT,LIMIT+1))
+  console.log(filtered)
 }
 
 function handlePage(e) {
@@ -59,7 +64,7 @@ function handlePage(e) {
 }
 
 function clearFilters(e) {
-  
+  dispatch(cleanFilter())
 }
 
 
@@ -88,7 +93,8 @@ function clearFilters(e) {
         
     </div>
     </div>
-      {
+      {/* {notFound?
+      <h1>Disculpe las molestias la receta no fue encontrada</h1>: }*/
         currentRecipes.length!==0&&currentRecipes.map((r)=>{
           return(
         
@@ -102,7 +108,7 @@ function clearFilters(e) {
         })
       }
       <div>
-        <Pagination recipes={recipes?.length} paginate={(e)=>handlePage(e)} recipesPerPage={LIMIT}/>
+        <Pagination recipes={(filtered.length!==0)?filtered.lenght:recipes?.length} paginate={(e)=>handlePage(e)} recipesPerPage={LIMIT}/>
       </div>
 
     </div>
