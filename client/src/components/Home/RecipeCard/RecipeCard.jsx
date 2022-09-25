@@ -9,7 +9,7 @@ export default function RecipeCard(recipe) {
   const dispatch=useDispatch()
   return (
     <div className='card'>
-    <div key={recipe.key}>{recipe.name}</div>
+    <div>{recipe.name}</div>
     <img src={recipe.image} alt=' '/>
     <ul>
     {Array.isArray(recipe.diets)? recipe.diets.map((d)=><li key={d}>{d}</li>):

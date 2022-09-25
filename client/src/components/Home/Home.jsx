@@ -4,27 +4,31 @@ import RecipeCard from './RecipeCard/RecipeCard';
 import {getAllRecipes,getDiets,sortByName,searchByDiet} from '../../actions';
 import { useEffect } from 'react'
 import './Home.css';
+import { useState } from 'react';
+import Pagination from '../Pagination/Pagination';
+import RecipesCard from './RecipesCards/RecipesCard';
 
+const INITIAL_PAGE=0
+const LIMIT =3
 
 export default function Home() {
+
+  const [page, setPage]=useState(INITIAL_PAGE)
+  const[currentRecipes,setCurrentRecipes]=useState([])
+
   const dispatch=useDispatch()
-  const recipes= useSelector((state)=>state.recipes)
-  const diets= useSelector((state)=>state.diets)
+  const recipes= useSelector(state=>state.recipes)
+  const diets= useSelector(state=>state.diets)
 
-  function handleSort(e) {
-    e.preventDefault()
-    var value = [e.target.value].toString()
-    dispatch(sortByName(value))
+  const lastRecipe=page*LIMIT+ LIMIT
+  const firstRecipe=lastRecipe-LIMIT
   
-  }
+ 
+                        
 
-  function handleOnSelect(e) {
-    e.preventDefault()
-    var value = [e.target.value]
-    dispatch(searchByDiet(value))
-  }
 
 useEffect(()=>{
+  console.log('entre a montar componente')
   dispatch(getAllRecipes())
 },[dispatch])
 
@@ -32,7 +36,38 @@ useEffect(()=>{
   dispatch(getDiets())
 },[dispatch])
 
+useEffect(()=>{
+  console.log('actualice esto')
+  setCurrentRecipes(recipes.slice(firstRecipe,lastRecipe+1))
+},[setCurrentRecipes, recipes])
+
+
+
+
+function handleSort(e) {
+  var value = [e.target.value].toString()
+  setPage(INITIAL_PAGE)
+  dispatch(sortByName(value))
+  setCurrentRecipes(recipes.slice(firstRecipe,lastRecipe+1))
   
+}
+
+function handleOnSelect(e) {
+  e.preventDefault()
+  var value = [e.target.value]
+  dispatch(searchByDiet(value))
+}
+
+function handlePage(e) {
+  var value = [e.target.value]
+  setPage(()=>{return value[0]})
+  setCurrentRecipes(recipes.slice(firstRecipe,lastRecipe+1))
+
+ 
+  
+}
+
+
   return (
     <div className='back'>
       <div className='row'>
@@ -55,22 +90,22 @@ useEffect(()=>{
         
     </div>
     </div>
-
-
-      <div className='home'>
       {
+        // currentRecipes&&<RecipesCard currentRecipes={currentRecipes}/>
+        currentRecipes.length!==0&&currentRecipes.map((r)=>{
+          return(
         
-        recipes&&recipes.map((r)=>
-        <div>
        <RecipeCard
         key={r.id}
         id={r.id}
         name={r.name}
         image={r.image}
         diets={r.diets}/>
-        </div>
-        )
+          )
+        })
       }
+      <div>
+        <Pagination recipes={recipes?.length} paginate={(e)=>handlePage(e)} recipesPerPage={LIMIT}/>
       </div>
 
     </div>

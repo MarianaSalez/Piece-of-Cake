@@ -19,9 +19,10 @@ function App() {
     {
     (loading)?
     <BrowserRouter>
-    <Routes>
-      <Route exact path="/" element={<Landing />}/>
-    </Routes>   
+    <Landing />
+    {/* <Routes>
+      <Route path="/" element={<Landing />}/>
+    </Routes>    */}
     </BrowserRouter>
     :
     <>

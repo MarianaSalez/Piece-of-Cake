@@ -7,22 +7,23 @@
     background-size: cover;
     height: 100vh;
     background-position: center center;
-    overflow-y: hidden
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
 }
 
 .title{
     font-family: 'Caveat', cursive;
     color: aliceblue;
-    text-align: center;
-    padding-top: 20%;
-    font-size: 3em;
+    font-size: 3.5rem;
+   
 }
 
 .landignButton{
-    justify-content: center;
-    margin-left:35%;
     font-size: 2em;
     border-radius: 5%;
     border:solid;
-    
+
 }

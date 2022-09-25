@@ -7,6 +7,7 @@ const initialState = {
   loading: true,
   recipe:{},
   recipes: [],
+  filtered:[],
   diets: [],
 };
 
@@ -34,23 +35,37 @@ const rootReducer = (state = initialState, action) => {
       case SORT_BY_NAME:
       const sorted =  state.recipes
       console.log(action.payload)
-  
-      if (sorted.length!==0) {
-      sorted.sort((a,b) =>{
-      const nameA = a.name; 
-      const nameB = b.name; 
-      if (nameA < nameB) {
-        return -1;
+
+      if (sorted.length!==0&&action.payload === "asc") {
+        sorted.sort((a,b) =>{
+          const nameA = a.name; 
+          const nameB = b.name; 
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0
+        })
+        
       }
-      if (nameA > nameB) {
-        return 1;
+      if(sorted.length!==0&&action.payload === "des"){
+        sorted.sort((a,b) =>{
+          const nameA = a.name; 
+          const nameB = b.name; 
+          if (nameA < nameB) {
+            return 1;
+          }
+          if (nameA > nameB) {
+            return -1;
+          }
+          return 0
+        })
       }
-      return 0
-    })}
-    console.log(sorted)
-      if(action.payload === "asc") return {...state, recipes:sorted, loading:false}
-      else if(action.payload ==='desc') return {...state, recipes:sorted.reverse(), loading:false}
-      return state
+      console.log(sorted)
+      return {...state, recipes:sorted, loading:false}
+      
 
       case SORT_BY_HEALTH:
         return {...state, recipes:action.payload, loading:false}
