@@ -20,9 +20,13 @@ export default function Home() {
   const recipes= useSelector(state=>state.recipes)
   const diets= useSelector(state=>state.diets)
 
-  const lastRecipe=page*LIMIT+ LIMIT
-  const firstRecipe=lastRecipe-LIMIT
-  
+  //ACTUALIZACION DE PAGINA
+  useEffect(()=>{
+    const lastRecipe=page*LIMIT+ LIMIT
+    const firstRecipe=lastRecipe-LIMIT
+    setCurrentRecipes(recipes.slice(firstRecipe,lastRecipe))
+  },[page,recipes])
+ 
  
                         
 
@@ -37,8 +41,8 @@ useEffect(()=>{
 },[dispatch])
 
 useEffect(()=>{
-  console.log('actualice esto')
-  setCurrentRecipes(recipes.slice(firstRecipe,lastRecipe+1))
+  console.log('Monte la info traida')
+  setCurrentRecipes(recipes.slice(INITIAL_PAGE*LIMIT,LIMIT+1))
 },[setCurrentRecipes, recipes])
 
 
@@ -48,7 +52,7 @@ function handleSort(e) {
   var value = [e.target.value].toString()
   setPage(INITIAL_PAGE)
   dispatch(sortByName(value))
-  setCurrentRecipes(recipes.slice(firstRecipe,lastRecipe+1))
+  setCurrentRecipes(recipes.slice(INITIAL_PAGE*LIMIT,LIMIT+1))
   
 }
 
@@ -59,9 +63,10 @@ function handleOnSelect(e) {
 }
 
 function handlePage(e) {
+  console.log('cambie de pagina')
   var value = [e.target.value]
   setPage(()=>{return value[0]})
-  setCurrentRecipes(recipes.slice(firstRecipe,lastRecipe+1))
+ 
 
  
   
