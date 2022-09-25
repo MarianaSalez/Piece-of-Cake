@@ -19,7 +19,6 @@ export default function Home() {
   const dispatch=useDispatch()
   const recipes= useSelector(state=>state.recipes)
   const filtered= useSelector(state=>state.filtered)
-  console.log(filtered)
   const diets= useSelector(state=>state.diets)
 
   //ACTUALIZACION DE PAGINA
@@ -27,7 +26,7 @@ export default function Home() {
     const lastRecipe=page*LIMIT+ LIMIT
     const firstRecipe=lastRecipe-LIMIT
     setCurrentRecipes((filtered.length!==0)?filtered.slice(firstRecipe,lastRecipe):recipes.slice(firstRecipe,lastRecipe))
-  },[page,recipes])
+  },[page,recipes,filtered])
  
 
 useEffect(()=>{
