@@ -1,0 +1,15 @@
+.formContainer{
+    background-image: url('https://res.cloudinary.com/dvkvyi1dr/image/upload/v1664145411/PI-FOOD/tartan-wooden-background_bjiv1h.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    height: 70vh;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+ display: flex;
+ flex-wrap: wrap;
+ flex-direction:row;
+ 
+}
