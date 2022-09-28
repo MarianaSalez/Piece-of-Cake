@@ -9,7 +9,7 @@ import Pagination from '../Pagination/Pagination';
 
 
 const INITIAL_PAGE=0
-const LIMIT =3
+const LIMIT =9
 
 export default function Home() {
 
@@ -93,6 +93,7 @@ function clearFilters(e) {
         
     </div>
     </div>
+    <div className='home'>
       {/* {notFound?
       <h1>Disculpe las molestias la receta no fue encontrada</h1>: }*/
         currentRecipes.length!==0&&currentRecipes.map((r)=>{
@@ -104,9 +105,11 @@ function clearFilters(e) {
         name={r.name}
         image={r.image}
         diets={r.diets}/>
+       
           )
         })
       }
+       </div>
       <div>
         <Pagination recipes={(filtered.length!==0)?filtered.lenght:recipes?.length} paginate={(e)=>handlePage(e)} recipesPerPage={LIMIT}/>
       </div>

@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 //Busqueda de todas las recetas y recetas por nombre
 
 const getAllRecipes=async function() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL}&addRecipeInformation=true&number=10`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL}&addRecipeInformation=true&number=100`)
    if (recepies.data.results) {
     const infoLanding=recepies.data.results.map(elem=>{
         return {
@@ -69,7 +69,7 @@ async function getNamedRecipe(name) {
 //Busqueda de todas las dietas y dietas por nombre
 
 async function getDiets() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET}&addRecipeInformation=true&number=10`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET}&addRecipeInformation=true&number=100`)
    if (recepies.data.results) {
     const repetDiets=recepies.data.results.map(elem=>elem.diets).flat()
     const dietsApi = [...new Set(repetDiets)]

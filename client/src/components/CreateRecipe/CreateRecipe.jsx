@@ -121,12 +121,12 @@ const previewFile=(file)=>{
 
 
     
-  let handleImage=(e)=>{
+  let handleImage=async(e)=>{
     e.preventDefault();
     const formData=new FormData()
     formData.append('file', selectedImage)
     formData.append("upload_preset",'Data_Base' )
-    axios.post('https://api.cloudinary.com/v1_1/dvkvyi1dr/image/upload', 
+    await axios.post('https://api.cloudinary.com/v1_1/dvkvyi1dr/image/upload', 
     formData).then((response)=>{setData({...data, image: response.data.secure_url})})
 
   }
@@ -161,25 +161,27 @@ const previewFile=(file)=>{
     <div className='formContainer'>
      <form className='form'  onChange={handleOnSubmitButton}>
       <div id="header" >
-        <label>Recipe Name: </label>
+        <label>Recipe Name:  {error.name&&<p className='error'>{error.name}</p>} </label>
         <input className='title' onChange={handleOnChange} name='name' value={data.name}></input>
+     
       </div>
       
       <div id='aside_Score'>
-      <label>score: </label>
-        <input className='score' onChange={handleOnChange} type='number' name='score' value={data.score}></input>
-
-        <label>Health Score: </label>
-        <input  className='score' onChange={handleOnChange} type='number' name='healthScore' value={data.healthScore}></input>
-
+      <label>score: {error.score&&<p className='error'>{error.score}</p>}</label>
+      <input className='score' onChange={handleOnChange} type='number' name='score' value={data.score}></input>
+      
+      <label>Health Score: {error.healthScore&&<p className='error'>{error.healthScore}</p>} </label>
+      <input  className='score' onChange={handleOnChange} type='number' name='healthScore' value={data.healthScore}></input>
       </div>
 
       <div id='body_form'>
-      <label>Summary: </label>
+      <label>Summary: {error.summary&&<p className='error'>{error.summary}</p>} </label>
       <textarea onChange={handleOnChange} className='textArea' name='summary' value={data.summary} />
+      
 
-      <label>Steps: </label>
+      <label>Steps: {error.steps&&<p className='error'>{error.steps}</p>}</label>
       <textarea onChange={handleSteps} className='textArea' name='steps' value={data.steps}/>
+      
       </div>
         
         
@@ -189,17 +191,18 @@ const previewFile=(file)=>{
           <img src={previewSource} alt='chosenOne' style={{height:'50px'}}/>
         )}
         <button onClick={handleImage}>Upload Image</button>
+        {error.image&&<p>{error.image}</p>}
         </div>
      
      <div id='dietsArea'>
     <label>Diets</label>
     {diets&&diets.map((d)=>
         <button value={d} key={d}>{d} <input onChange={handleSelectedDiets} type='checkbox' value={d}></input></button>)}
-      
+       {error.diets&&<p>{error.diets}</p>}
      </div>
      </form>
 
-     <button id="myBtn" type="submit" onSubmit={handleOnSubmit} >Create</button>
+     <button id="myBtn" type="submit" onClick={handleOnSubmit} >Create</button>
     
     </div>
   );

@@ -2,10 +2,10 @@
     background-image: url('https://res.cloudinary.com/dvkvyi1dr/image/upload/v1664145411/PI-FOOD/tartan-wooden-background_bjiv1h.jpg');
     background-size: cover;
     background-attachment: fixed;
-    height: 70vh;
+    height: max-content;
     align-items: center;
     justify-content: center;
-    contain: content;
+
 }
 .form{
 padding: 2%;
@@ -16,16 +16,29 @@ grid-template-areas:
 "body_form imageUploadArea"
 "body_form imageUploadArea"
 "body_form dietsArea";
-
 grid-template-rows: 0.5fr 1fr 1fr 1fr; 
 grid-template-columns:  2fr 1fr;
 color: aliceblue;
 font-weight: 400;
-
+font-size: 1.5vw;
 grid-row-gap: 10px;
 grid-column-gap: 30px;
-
 }
+
+label{
+    display: flex;
+    align-items: center;
+    
+}
+
+.error{
+    margin-left: 5px;
+    color: rgba(255, 0, 0, 0.743);
+    font-size: 1vw;
+    font-weight: 600;
+    background-color: rgb(207, 180, 145);
+}
+
 
 div#header{
     grid-area: header;
@@ -44,12 +57,13 @@ div#header{
 div#aside_Score{
     grid-area:aside_Score;
     display: flex;
-    width: 50%;
+    flex-direction: column;
+    width: 80%;
     margin-right: 20px;
 }
 
 .score{
-    width: 40%;
+    width: 10%;
     height: 40%;
     margin-right: 20px;
     margin-left: 10px;
