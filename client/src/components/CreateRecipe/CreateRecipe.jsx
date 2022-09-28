@@ -3,27 +3,41 @@ import { createRecipe } from '../../actions';
 import './create.css';
 import { useDispatch,useSelector } from 'react-redux';
 import { getDiets } from '../../actions';
-//import cloudinary from 'cloudinary'
+import axios from 'axios';
+import { useState } from 'react';
 
+
+
+function validate(data) {
+  let errores={}
+  if(!data.name)errores.name='Set the Recipe Name'
+  
+  if(!data.summary)errores.summary=`What's this recipe about?`
+  
+  if(data.summary.length>1500)errores.summary='Please synthesize, you can only public 1500 characters'
+  
+  if(!data.score) errores.score='Enter this recipe score'
+
+  if(!data.healthScore) errores.healthScore='Enter this recipe Health Score'
+
+  if(data.healthScore>100||data.healthScore<0) errores.healthScore='The health Score range is between 0-100. Enter a valid value'
+  
+  if(!data.steps) errores.steps='Enter the steps we must folow to make this recipe'
+
+  if(!data.image) errores.image='Please upload this recipe image, it is nice to see what we are going to prepare'
+
+  if(data.diets.length===0) errores.diets='Please select at least one diet'
+  
+  return errores}
 
 export default function CreateRecipe() {
 
   const dispatch=useDispatch()
   const diets= useSelector(state=>state.diets)
 
-  // const myWidget = cloudinary.createUploadWidget({
-  //   cloudName: 'dvkvyi1dr', 
-  //   uploadPreset: 'Data_Base'}, (error, result) => { 
-  //     if (!error && result && result.event === "success") { 
-  //       setData({...data, image: `https://res.cloudinary.com/${cloudName}/${result.info.resource_type}/${result.info.type}/v${result.info.version}/${result.info.pyblic_id}.${result.info.format}`})
-  //       console.log('Done! Here is the image info: ', data.image); 
-  //     }
-  //   }
-  // )
-  
-  
 
-  const[data, setData]=React.useState({
+  const [error, setError]=useState({})
+  const[data, setData]=useState({
     name:'',
     summary:'',
     score:0,
@@ -34,26 +48,59 @@ export default function CreateRecipe() {
   })
 
 
+  const [selectedImage, setSelectedImage]=useState('')
+  const [previewSource, setPreviewSource]= useState()
+
+  
+let handleFileInputChange=(e)=>{
+  const file=e.target.files[0]
+  setSelectedImage(file)
+  previewFile(file)
+}
+
+const previewFile=(file)=>{
+  const reader= new FileReader()
+  reader.readAsDataURL(file)
+  reader.onloadend=()=>{
+    setPreviewSource(reader.result)
+  }
+}
+
   useEffect(()=>{
     dispatch(getDiets())
   },[dispatch])
   
-  
-// function validate(data) {
-//   let error={}
-//   if(!data.name){
-//     error.name= 'Which is the Recipe name?'
-//   }
-  
-// }
 
   
   let handleOnChange=(e)=>{
     setData({...data,
       [e.target.name]:e.target.value})
+
+      setError(
+        validate({...data,
+          [e.target.name]:e.target.value})
+
+      )
   }
 
+  let handleSteps=(e)=>{
+    setData({
+      ...data,
+      steps: [e.target.value],
+    });
+    setError(
+      validate({
+        ...data,
+        steps: e.target.value,
+      })
+    );
+  }
+
+
+
+
   let handleSelectedDiets=(e)=>{
+    e.preventDefault();
     if(e.target.checked){
       if(!data.diets.includes(e.target.value)){
         setData({...data, diets: [...data.diets, e.target.value]})
@@ -64,17 +111,30 @@ export default function CreateRecipe() {
       setData({...data,
         diets:filt})
     }
+    setError(
+      validate({
+        ...data,
+        diets: [...data.diets, e.target.value],
+      })
+    );
   }
+
+
     
-  let handleImage=()=>{
-  // document.getElementById("upload_widget").addEventListener("click", function(){
-  //   myWidget.open();
-  // }, false);}
+  let handleImage=(e)=>{
+    e.preventDefault();
+    const formData=new FormData()
+    formData.append('file', selectedImage)
+    formData.append("upload_preset",'Data_Base' )
+    axios.post('https://api.cloudinary.com/v1_1/dvkvyi1dr/image/upload', 
+    formData).then((response)=>{setData({...data, image: response.data.secure_url})})
+
   }
    
 
-  function handleOnSubmit(e) {
-    e.preventDefault();
+  let handleOnSubmit=(e)=> {
+    
+    console.log(data)
     dispatch(createRecipe(data))
     setData({
       name:'',
@@ -84,33 +144,63 @@ export default function CreateRecipe() {
       steps:[],
       image:'',
       diets:[],
-    })
-  }
+    })}
+
+  function handleOnSubmitButton(e) {
+    e.preventDefault();
+    if (Object.values(error).length > 0)  document.getElementById("myBtn").disabled = true;
+    else document.getElementById("myBtn").disabled = false;
+    
+    }
+
+
+    
+  
   
   return (
     <div className='formContainer'>
-     <form onSubmit={handleOnSubmit} className='form' >
+     <form className='form'  onChange={handleOnSubmitButton}>
+      <div id="header" >
         <label>Recipe Name: </label>
-        <input onChange={handleOnChange} name='name' value={data.name}></input>
-        <label>Summary: </label>
-        <textarea onChange={handleOnChange} name='summary' value={data.summary}/>
-        <label>score: </label>
-        <input onChange={handleOnChange} type='number' name='score' value={data.score}></input>
+        <input className='title' onChange={handleOnChange} name='name' value={data.name}></input>
+      </div>
+      
+      <div id='aside_Score'>
+      <label>score: </label>
+        <input className='score' onChange={handleOnChange} type='number' name='score' value={data.score}></input>
+
         <label>Health Score: </label>
-        <input onChange={handleOnChange} type='number' name='healthScore' value={data.healthScore}></input>
-        <label>Steps: </label>
-        <textarea onChange={handleOnChange} name='steps' value={data.steps}/>
-        <button  id="upload_widget" onChange={handleImage} type='image' name='image' value={data.image} alt='RecipeImage'>Uploead Image</button>
+        <input  className='score' onChange={handleOnChange} type='number' name='healthScore' value={data.healthScore}></input>
+
+      </div>
+
+      <div id='body_form'>
+      <label>Summary: </label>
+      <textarea onChange={handleOnChange} className='textArea' name='summary' value={data.summary} />
+
+      <label>Steps: </label>
+      <textarea onChange={handleSteps} className='textArea' name='steps' value={data.steps}/>
+      </div>
+        
+        
+        <div id='imageUploadArea'>
+        <input  id="upload_widget" onChange={handleFileInputChange} type='file' name='image'/>
+        {previewSource&&(
+          <img src={previewSource} alt='chosenOne' style={{height:'50px'}}/>
+        )}
+        <button onClick={handleImage}>Upload Image</button>
+        </div>
      
-     <div>
+     <div id='dietsArea'>
     <label>Diets</label>
     {diets&&diets.map((d)=>
         <button value={d} key={d}>{d} <input onChange={handleSelectedDiets} type='checkbox' value={d}></input></button>)}
-
+      
      </div>
-    
-      <button type="submit" onSubmit={handleOnSubmit} >Create</button>
      </form>
+
+     <button id="myBtn" type="submit" onSubmit={handleOnSubmit} >Create</button>
+    
     </div>
   );
 };

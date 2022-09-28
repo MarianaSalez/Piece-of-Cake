@@ -30,7 +30,7 @@ const {id}=useParams()
   <div>{r.healthScore}</div>
   </div>
   <div>
-    <p>{r.summary}</p>
+    <p dangerouslySetInnerHTML={{__html:r.summary}}/>
     <ul>
       <p>Ingredients:</p>
     {r.ingredients.map((i)=>
