@@ -79,11 +79,9 @@ router.get('/',async (req,res)=>{
                 name: d,
               },
             });
-            newRecipe.setDiets(dbDiet);
+            newRecipe.setDiets(dbDiet[0].dataValues.id)
           });
     
-        // const proms = Array.from(diets).map(diet => newRecipe.addDiet( {where: { name: diet }}));
-        // await Promise.all(proms)
         
     res.status(201).send(`Receta ${newRecipe.name} creada correctamente`)
     } catch (error) {

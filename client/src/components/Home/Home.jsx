@@ -30,9 +30,9 @@ export default function Home() {
   },[page,recipes,filtered])
  
 
-useEffect(()=>{
-  dispatch(getAllRecipes())
-},[dispatch])
+// useEffect(()=>{
+//   dispatch(getAllRecipes())
+// },[dispatch])
 
 useEffect(()=>{
   dispatch(getDiets())

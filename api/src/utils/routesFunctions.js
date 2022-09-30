@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {API_KEY_ALL, API_KEY_RECIPE,API_KEY_DIET} = process.env;
+const {API_KEY_ALL, API_KEY_RECIPE,API_KEY_DIET2} = process.env;
 const axios = require("axios");
 const {Recipe, Diet} =require('../db')
 const { Op } = require("sequelize");
@@ -69,7 +69,7 @@ async function getNamedRecipe(name) {
 //Busqueda de todas las dietas y dietas por nombre
 
 async function getDiets() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET}&addRecipeInformation=true&number=18`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET2}&addRecipeInformation=true&number=18`)
    if (recepies.data.results) {
     const repetDiets=recepies.data.results.map(elem=>elem.diets).flat()
     const dietsApi = [...new Set(repetDiets)]

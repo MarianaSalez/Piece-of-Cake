@@ -1,8 +1,51 @@
 .card{
+    margin-top: 10px;
     filter: blur(0);
     backdrop-filter: blur(15px);
-    height: 400px;
+    height: 370px;
     text-align: center;
+    align-items: center;
     border: solid aliceblue;
+}
 
+.RecipecardTitle{
+    display: flex;
+    color: aliceblue;
+    font-size: 1.0em;
+    height: 50px;
+    background-color: brown;
+    border: solid aliceblue 1px;
+    justify-content: center;
+    align-items: center;
+    
+   
+}
+ul{
+    margin-top: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    justify-content: center;
+    height: 40px;
+}
+li{
+    margin-left: 5px;
+    color: aliceblue;
+    text-transform: capitalize;
+    font-size: 0.85em;
+   
+}
+img{
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 200px;
+    border: solid aliceblue;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);   
+}
+
+.buttonDetail{
+    color: aliceblue;
+    border: solid aliceblue 1px;
+    background-color: brown;
 }

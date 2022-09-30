@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
-.container{
+.containerLanding{
     margin:0%;
     background-image: url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663620270/PI-FOOD/Landing_page_image2_zkviqw.jpg);
     background-size: cover;
@@ -14,16 +14,35 @@
     justify-content:center;
 }
 
-.title{
+.titleLanding{
     font-family: 'Caveat', cursive;
     color: aliceblue;
     font-size: 3.5rem;
-   
+    margin-top: 10%;
+}
+
+.subtitleLanding{
+    font-family: 'Caveat', cursive;
+    color: aliceblue;
+    font-size: 2.5rem;
 }
 
 .landignButton{
     font-size: 2em;
     border-radius: 5%;
     border:solid;
+}
 
+.sublandignButton{
+    font-size: 1em;
+    border-radius: 5%;
+    border:solid;
+    margin: 5px;
+}
+
+.buttonslanding{
+    width: 50%;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
 }

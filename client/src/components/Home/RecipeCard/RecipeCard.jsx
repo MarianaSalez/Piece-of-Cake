@@ -9,16 +9,21 @@ export default function RecipeCard(recipe) {
   const dispatch=useDispatch()
   return (
     <div className='card'>
-    <div>{recipe.name}</div>
-    <img src={recipe.image} alt=' '/>
+    <h2 className='RecipecardTitle'>{recipe.name}</h2>
     <ul>
-    {Array.isArray(recipe.diets)? recipe.diets.map((d)=><li key={d}>{d}</li>):
+    {Array.isArray(recipe.diets)? recipe.diets.map((d)=><li key={d}>{d} |</li>):
       <li>No tiene Dieta asignada</li>
       }
     </ul>
-    <Link to={`/recipes/${recipe.id}`}>
-    <button onClick={()=>dispatch(getDetail(recipe.id))}>View</button>
+    <img src={recipe.image} alt=' '/>
+    <br/>
+    <div>
+      <Link to={`/recipes/${recipe.id}`}>
+    <button className='buttonDetail' onClick={()=>dispatch(getDetail(recipe.id))}>View More</button>
     </Link>
+
+    </div>
+    
     
   
     </div>
