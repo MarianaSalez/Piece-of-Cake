@@ -196,9 +196,10 @@ const previewFile=(file)=>{
         
         <div id='imageUploadArea'>
         <input  id="upload_widget" onChange={handleFileInputChange} type='file' name='image'/>
-        {previewSource&&(
-          <img src={previewSource} alt='chosenOne' style={{height:'150px', padding: '10px'}}/>
-        )}
+        {previewSource?(
+          <img src={previewSource} alt='chosenOne' style={{height:'250px', margin: '10px', width: '250px', border:'solid black'
+        }}/>
+        ):<div className='boxImage'>Preview</div>}
         <button onClick={handleImage}>Upload Image</button>
         {error.image&&<p>{error.image}</p>}
         </div>
