@@ -47,6 +47,8 @@ export default function CreateRecipe() {
     diets:[],
   })
 
+  const[selfDiet, setSelfDiet]=useState('')
+
 
   const [selectedImage, setSelectedImage]=useState('')
   const [previewSource, setPreviewSource]= useState()
@@ -75,6 +77,7 @@ const previewFile=(file)=>{
   let handleOnChange=(e)=>{
     setData({...data,
       [e.target.name]:e.target.value})
+      console.log(data)
 
       setError(
         validate({...data,
@@ -101,7 +104,7 @@ const previewFile=(file)=>{
 
   let handleSelectedDiets=(e)=>{
     e.preventDefault();
-    if(e.target.checked){
+    if(e.target.checked&&e.target.value){
       if(!data.diets.includes(e.target.value)){
         setData({...data, diets: [...data.diets, e.target.value]})
       }
@@ -153,6 +156,11 @@ const previewFile=(file)=>{
     
     }
 
+    let handleNewDietInput=(e)=>{
+        (e).preventDefault()
+        setSelfDiet(e.target.value)
+        console.log(selfDiet)
+    }
 
     
   
@@ -167,11 +175,12 @@ const previewFile=(file)=>{
       </div>
       
       <div id='aside_Score'>
-      <label>score: {error.score&&<p className='error'>{error.score}</p>}</label>
+      <label>score: </label>
       <input className='score' onChange={handleOnChange} type='number' name='score' value={data.score}></input>
-      
-      <label>Health Score: {error.healthScore&&<p className='error'>{error.healthScore}</p>} </label>
+      {error.score&&<p className='error'>{error.score}</p>}
+      <label>Health Score:  </label>
       <input  className='score' onChange={handleOnChange} type='number' name='healthScore' value={data.healthScore}></input>
+      {error.healthScore&&<p className='error'>{error.healthScore}</p>}
       </div>
 
       <div id='body_form'>
@@ -188,21 +197,29 @@ const previewFile=(file)=>{
         <div id='imageUploadArea'>
         <input  id="upload_widget" onChange={handleFileInputChange} type='file' name='image'/>
         {previewSource&&(
-          <img src={previewSource} alt='chosenOne' style={{height:'50px'}}/>
+          <img src={previewSource} alt='chosenOne' style={{height:'150px', padding: '10px'}}/>
         )}
         <button onClick={handleImage}>Upload Image</button>
         {error.image&&<p>{error.image}</p>}
         </div>
      
      <div id='dietsArea'>
-    <label>Diets</label>
-    {diets&&diets.map((d)=>
-        <button value={d} key={d}>{d} <input onChange={handleSelectedDiets} type='checkbox' value={d}></input></button>)}
-       {error.diets&&<p>{error.diets}</p>}
+    <label id='title'>Diets  {error.diets&&<p>{error.diets}</p>}</label>
+    <div id='buttons'>
+      {diets&&diets.map((d)=>
+        <div className='dietsButtons' key={d}>{d} <input onChange={handleSelectedDiets} type='checkbox' value={d}></input></div>)}
+       <div className='dietsButtons'><input onChange={handleNewDietInput} input={selfDiet} placeholder='Enter your Diet Name'/><input onChange={handleSelectedDiets} type='checkbox' value={selfDiet}/></div>
+    </div>
      </div>
+
+     <div id='createButton'>
+        <button className='submitButton' id="myBtn" type="submit" onClick={handleOnSubmit} >Create</button>
+      </div>
+
      </form>
 
-     <button id="myBtn" type="submit" onClick={handleOnSubmit} >Create</button>
+     
+    
     
     </div>
   );

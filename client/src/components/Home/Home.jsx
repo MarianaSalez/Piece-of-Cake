@@ -78,7 +78,7 @@ function clearFilters(e) {
         <button onClick={(e)=>clearFilters(e)}> Clear Filters</button>
 
         <select name="sort" onChange={(e)=>handleSort(e)}>
-            <option hidden>Sort Recipes</option>
+            <option key='sortTitle' hidden>Sort Recipes</option>
             <option value="asc">Ascendant A-Z</option>
             <option value="des">Descensant Z-A</option>
             <option value='ascHealth'>Healthier</option>
@@ -86,7 +86,7 @@ function clearFilters(e) {
         </select>
         
         <select name="filter" onChange={(e)=>handleOnSelect(e)} >
-        <option hidden>Filter by Diet</option>
+        <option  key='filterTitle' hidden>Filter by Diet</option>
         {diets&&diets.map((d)=>
         <option value={d} key={d}>{d}</option>)}
         </select>
