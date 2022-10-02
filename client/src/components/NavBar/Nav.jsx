@@ -13,16 +13,20 @@ export default function Nav() {
     <div className='navRoot' >
     <div className='row'>
         <Link to='/'><img className='logo' onClick={()=>dispatch(changeLoagind())} src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663372772/PI-FOOD/logo_food_api_ytyqfh.jpg' alt='Logo'/></Link>
-        <h1 className='frase'>"Anyone can cook" <span className='firma'>Gusteau</span></h1>
+        <Link to='/recipes'><h1 className='frase'>"Anyone can cook" <span className='firma'>Gusteau</span></h1></Link>
         <div>
         <SearchBar  />
-        <br/>
-        <Link to='/recipes/random'>
-        <button>Random</button>
-        </Link>
-        <Link to='/recipes/create'>
-        <button>Add New</button>
-        </Link>
+    <div>
+      <Link to='/recipes/random'>
+        <button  className='buttonsNav' >Random</button>
+      </Link>
+
+      <Link to='/recipes/create'>
+        <button  className='buttonsNav' >Add New</button>
+      </Link>
+
+    </div>
+        
 
         </div>  
     </div>

@@ -8,10 +8,11 @@
     display: grid;
     grid-template-areas:
 "recTitle recTitle  recScore"
-"recimage description  description"
-"ingridients steps steps";
-grid-template-rows: 0.3fr 0.8fr 1fr; 
-grid-template-columns:  1fr 1fr 0.5fr; 
+"description description description"
+"recimage ingridients ingridients "
+"steps  steps steps";
+grid-template-rows: 0.2fr 0.5fr 1fr 0.8fr; 
+grid-template-columns:  1.5fr 1.2fr 0.25fr; 
 
 }
 
@@ -19,57 +20,107 @@ div#recTitle{
     grid-area: recTitle;
     color: aliceblue;
     display: flex;
+    flex-direction: column;
+}
+
+.titleDetail{
+    margin: 0%;
+    padding: 2px;
+    background-color: rgba(165, 42, 42, 0.821);
+    text-align: center;
+    width: 100%;
+}
+
+.dietsDetail{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-evenly;
+    align-items: center;
+    border: brown solid 2px;
+    background-color: rgba(163, 30, 30, 0.153);
+    margin-left: 25%;
+    text-transform: capitalize;
 }
 
 div#recScore{
     grid-area: recScore;
-    
+    display: flex;
+    padding: 10px 15px;
+    background-color: rgba(240, 248, 255, 0.746);
+    height: fit-content;
+    width: fit-content;
+    border: solid antiquewhite;
+
 }
 
 div#ingridients{
     grid-area: ingridients;
-    width: 60%;
+    display:flex;
+    width: 70%;
     padding-left: 10px;
     color: aliceblue;
-    margin-left: 10px;
+    margin-left: 15%;
+    margin-top: 5%;
     background-color: brown; 
+    height:fit-content;
+    font-size: 1.2em ;
+    font-weight: 500;
 }
 
 .listIng{
     display: block;
     height: fit-content;
-
+    
 }
 
 div#steps{
     grid-area: steps;
-    
+    display: flex;
+    width: 95%;   
+    border: rgb(255, 255, 255) solid 2px;
+    background-color: rgba(255, 248, 248, 0.662);
+    padding: 2%;
+    height: fit-content;
+}
+
+.liDetail{
+    font-size: 1.1em;
+    color: black;
+    font-weight: 500;
+    text-align: justify;
+    padding: 5px;
+    text-transform:none;
 }
 
 div#description{
     grid-area: description;
-    
     display: flex;
     flex-wrap: wrap;
-    color: aliceblue;
+    color: rgb(16, 17, 17);
     text-align: justify;
-   
-    
+    width: 97%;
+    margin-top: 2%;
+    padding: 1%;
+    font-size: 0.95em;
+    height: fit-content;
+    border: rgb(255, 255, 255) solid 2px;
+    background-color: rgba(255, 248, 248, 0.475);
+    font-weight: 500;
 }
+
+
 div#recimage{
     grid-area: recimage;
     display: flex;
-    
-
     width: 100%;
-    height: auto;
+    height: auto;    
 }
 
 .recImg{
-    width: 350px;
-    height: 350px;
+    width: 560px;
+    height: 450px;
     padding: 5px;
     margin-bottom: 10px;
-
 }
 

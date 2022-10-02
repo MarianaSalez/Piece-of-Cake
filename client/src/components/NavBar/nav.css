@@ -1,32 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+
 .navRoot{
     display: flex;
     flex-direction: column;
     margin:0%;
     background-image: url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625355/PI-FOOD/Background-min_dpneso.jpg);
     background-size: cover;
-    height: 12vw;
+    height: 14vw;
 }
 
 .frase{
     margin: 0%;
     display: flex;
     width: fit-content;
+    color: aliceblue;
+    font-size: 4em;
+    font-family: 'Caveat', cursive;
     
+}
+
+a:link{
+    text-decoration: none;
 }
 
 .firma{
     font-style: italic;
-    font-size: 0.8em;
+    font-size: 0.5em;
+    align-self: flex-end;
+    padding-left: 20px;
+    font-weight: 300;
 }
 .logo{
-    width: 15vw;
-    border-radius: 50%;
-    
+    width: 12vw;
+    height: 12vw;
+    border-radius: 50%;  
 }
+
 .row{
     display: flex;
     flex-direction: row;
-    width: 100%;
-    justify-content: space-evenly;
+    width: 96%;
+    justify-content: space-around;
     align-items: center;
+    padding: 2%;
+}
+
+.buttonsNav{
+    margin-top: 7%;
+    margin-right: 5%;
+    font-size: 1em;
 }
