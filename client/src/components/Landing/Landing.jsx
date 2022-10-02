@@ -28,7 +28,7 @@ export default function Landing() {
       <h2 className='subtitleLanding'>Something in this Diet:</h2> 
       <div className='buttonslanding'>
       {diets&&diets.map((d)=>
-      <Link  to='/recipes'>
+      <Link key={d} to='/recipes'>
       <button  key={d} value={d} className='sublandignButton' onClick={(e)=>dispatch(searchByDiet(e.target.value))}>{d}</button>
       </Link>)}
     </div>

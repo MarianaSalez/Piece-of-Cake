@@ -21,6 +21,7 @@ router.get('/',async (req,res)=>{
         const apirecepies=await getRecipesDiet(diet)
         console.log(apirecepies)
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
+            
             else{
             res.status(401).send('Disculpe, no encontramos coincidencia.')
             }

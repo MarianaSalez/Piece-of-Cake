@@ -1,14 +1,14 @@
 require("dotenv").config();
-const {API_KEY_ALL, API_KEY_RECIPE,API_KEY_DIET2} = process.env;
+const {API_KEY_ALL5, API_KEY_RECIPE5,API_KEY_DIET5} = process.env;
 const axios = require("axios");
 const {Recipe, Diet} =require('../db')
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
 
 
 //Busqueda de todas las recetas y recetas por nombre
 
 const getAllRecipes=async function() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL}&addRecipeInformation=true&number=18`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL5}&addRecipeInformation=true&number=18`)
    if (recepies.data.results) {
     const infoLanding=recepies.data.results.map(elem=>{
         return {
@@ -19,9 +19,9 @@ const getAllRecipes=async function() {
             healthScore:elem.healthScore,
             image: elem.image,
             diets:elem.diets,
-            
+
         }})
-    
+
     return infoLanding}
 }
 
@@ -36,7 +36,7 @@ async function getNamedRecipe(name) {
 
  async function getInfoRecipe(id) {
     if(Number(id)){
-        const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE}&addRecipeInformation=true`)
+        const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE5}&addRecipeInformation=true`)
         if(recipe.data) {
             const detail= {
                 name:recipe.data.title,
@@ -62,25 +62,24 @@ async function getNamedRecipe(name) {
             const recipeDbDetail= await Recipe.findByPk(id)
             if(recipeDbDetail) return recipeDbDetail
         }
-        
+
     }
 
 
 //Busqueda de todas las dietas y dietas por nombre
 
 async function getDiets() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET2}&addRecipeInformation=true&number=18`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET5}&addRecipeInformation=true&number=18`)
    if (recepies.data.results) {
     const repetDiets=recepies.data.results.map(elem=>elem.diets).flat()
     const dietsApi = [...new Set(repetDiets)]
     const dietsDb= await Diet.findAll()
     if(dietsDb){
         for (let i = 0; i < dietsDb.length; i++) {
-            console.log(dietsDb[i].dataValues.name)
             if(!dietsApi.includes(dietsDb[i].dataValues.name)){
                 dietsApi.push(dietsDb[i].dataValues.name)
             }
-            
+
         }
     }
     return dietsApi
@@ -91,13 +90,35 @@ async function getRecipesDiet(diet){
     const infoLanding= await getAllRecipes()
     const apiDietRecipes=infoLanding.filter((e)=>e.diets.includes(diet)
         )
-    //Revisar base de datos
-    const dbRecipesWithDiets= await Recipe.findAll({include:{ model: Diet,
-      attibutes: ["name"],
-      through: {
-        attibutes: [],
-      }}})
-    const dbDietRecipes=dbRecipesWithDiets.filter((recipe) => recipe.name.includes(diet));
+        console.log(diet)
+
+    const recipesWithDiets= await Recipe.findAll({include:{
+        model: Diet,
+        through: {
+        attibutes: ["name"],
+      }}},)
+
+      const dbDietRecipes=[]
+      for (let i = 0; i < recipesWithDiets.length; i++) {
+        let dietas=recipesWithDiets[i].dataValues.diets
+        for (let j = 0; j < dietas.length; j++) {
+           if(dietas[j].dataValues.name===diet){
+            dbDietRecipes.push(recipesWithDiets[i].dataValues)
+           }
+        }
+      }
+
+      for (let i = 0; i < dbDietRecipes.length; i++) {
+        let nameDiets=[]
+        let dietas=dbDietRecipes[i].diets
+        for (let j = 0; j < dietas.length; j++) {
+            nameDiets.push(dietas[j].dataValues.name)
+         }
+        delete dbDietRecipes[i].diets
+        dbDietRecipes[i].diets=nameDiets
+
+      }
+   
     return apiDietRecipes.concat(dbDietRecipes)
 }
 

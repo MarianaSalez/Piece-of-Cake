@@ -1,0 +1,9 @@
+.ulPaginate{
+    margin-bottom: 2px;}
+
+.paginateBut{
+    color: aliceblue;
+    border: solid aliceblue 1px;
+    background-color: brown;
+    margin-left: 3px;
+}

@@ -1,0 +1,75 @@
+.backDetail{
+    background-image:url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625355/PI-FOOD/Background-min_dpneso.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    padding:20px;
+    contain: content;
+    display: grid;
+    display: grid;
+    grid-template-areas:
+"recTitle recTitle  recScore"
+"recimage description  description"
+"ingridients steps steps";
+grid-template-rows: 0.3fr 0.8fr 1fr; 
+grid-template-columns:  1fr 1fr 0.5fr; 
+
+}
+
+div#recTitle{
+    grid-area: recTitle;
+    color: aliceblue;
+    display: flex;
+}
+
+div#recScore{
+    grid-area: recScore;
+    
+}
+
+div#ingridients{
+    grid-area: ingridients;
+    width: 60%;
+    padding-left: 10px;
+    color: aliceblue;
+    margin-left: 10px;
+    background-color: brown; 
+}
+
+.listIng{
+    display: block;
+    height: fit-content;
+
+}
+
+div#steps{
+    grid-area: steps;
+    
+}
+
+div#description{
+    grid-area: description;
+    
+    display: flex;
+    flex-wrap: wrap;
+    color: aliceblue;
+    text-align: justify;
+   
+    
+}
+div#recimage{
+    grid-area: recimage;
+    display: flex;
+    
+
+    width: 100%;
+    height: auto;
+}
+
+.recImg{
+    width: 350px;
+    height: 350px;
+    padding: 5px;
+    margin-bottom: 10px;
+
+}
+

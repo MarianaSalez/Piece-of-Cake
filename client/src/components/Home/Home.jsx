@@ -30,9 +30,9 @@ export default function Home() {
   },[page,recipes,filtered])
  
 
-// useEffect(()=>{
-//   dispatch(getAllRecipes())
-// },[dispatch])
+useEffect(()=>{
+  dispatch(getAllRecipes())
+},[dispatch])
 
 useEffect(()=>{
   dispatch(getDiets())
@@ -51,16 +51,24 @@ function handleOnSelect(e) {
   e.preventDefault()
   var value = [e.target.value]
   dispatch(searchByDiet(value))
-  console.log(`se quizo filtrar por ${value}`)
   setCurrentRecipes((filtered.length!==0)?filtered.slice(INITIAL_PAGE*LIMIT,LIMIT+1):
                                           recipes.slice(INITIAL_PAGE*LIMIT,LIMIT+1))
   console.log(filtered)
 }
 
 function handlePage(e) {
-  console.log('cambie de pagina')
   var value = [e.target.value]
-  setPage(()=>{return value[0]})
+  if(e.target.value==='back'&&page!==0) {
+    setPage(()=>{
+    return page-1})
+  }
+  else if(e.target.value.includes('next')&&page<((Math.round(((filtered.length!==0)?filtered.lenght:recipes?.length)/LIMIT))-1)){ 
+    console.log(e.target.value.includes('next'))
+    console.log('entre a next')
+    console.log(page)
+    setPage(()=>{return page+1})}
+  else if(e.target.value!=='back'&&e.target.value!=='next') {setPage(()=>{return value[0]})}
+  else {return page}
 }
 
 function clearFilters(e) {
@@ -74,10 +82,10 @@ function clearFilters(e) {
   return (
     <div className='back'>
       <div className='row'>
-        <div id='filters'>
-        <button onClick={(e)=>clearFilters(e)}> Clear Filters</button>
+        <div className='filters'>
+        <button className='filtersOptions' onClick={(e)=>clearFilters(e)}> Clear Filters</button>
 
-        <select name="sort" onChange={(e)=>handleSort(e)}>
+        <select className='filtersOptions' name="sort" onChange={(e)=>handleSort(e)}>
             <option key='sortTitle' hidden>Sort Recipes</option>
             <option value="asc">Ascendant A-Z</option>
             <option value="des">Descensant Z-A</option>
@@ -85,7 +93,7 @@ function clearFilters(e) {
             <option value='ascRate'>Popular</option>
         </select>
         
-        <select name="filter" onChange={(e)=>handleOnSelect(e)} >
+        <select className='filtersOptions' name="filter" onChange={(e)=>handleOnSelect(e)} >
         <option  key='filterTitle' hidden>Filter by Diet</option>
         {diets&&diets.map((d)=>
         <option value={d} key={d}>{d}</option>)}

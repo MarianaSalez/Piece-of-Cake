@@ -48,8 +48,6 @@ export default function CreateRecipe() {
   })
 
   const[selfDiet, setSelfDiet]=useState('')
-
-
   const [selectedImage, setSelectedImage]=useState('')
   const [previewSource, setPreviewSource]= useState()
 
@@ -151,7 +149,7 @@ const previewFile=(file)=>{
 
   function handleOnSubmitButton(e) {
     e.preventDefault();
-    if (Object.values(error).length > 0)  document.getElementById("myBtn").disabled = true;
+    if (Object.values(error).length > 0 || data.name.length===0)  document.getElementById("myBtn").disabled = true;
     else document.getElementById("myBtn").disabled = false;
     
     }

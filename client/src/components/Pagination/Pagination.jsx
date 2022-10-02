@@ -8,10 +8,15 @@ export default function Pagination(recipes) {
         pages.push(i)
      }
   return (
-    <ul>
+    (pages.length!==0)?
+      <ul className='ulPaginate'>
+
+      <button  className='paginateBut' value={'back'}  onClick={recipes.paginate}>{'<'}</button>
         {
-            pages&&pages.map((p)=><button onClick={recipes.paginate} key={p} value={p}>{p+1}</button>)
+            pages&&pages.map((p)=><button  className='paginateBut' onClick={recipes.paginate} key={p} value={p}>{p+1}</button>)
         }
-    </ul>
+      <button className='paginateBut' value={'next'}  onClick={recipes.paginate}>{'>'}</button>
+    </ul>:
+    <ul className='ulPaginate'></ul> 
   )
 }

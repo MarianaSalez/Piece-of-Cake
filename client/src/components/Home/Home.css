@@ -2,6 +2,9 @@
     background-image:url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625355/PI-FOOD/Background-min_dpneso.jpg);
     background-size: cover;
     background-attachment: fixed;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    contain: content;
 }
 .home{
     margin: 20px;
@@ -11,5 +14,19 @@
     grid-column-gap: 10px;
     grid-row-gap: 15px;
     filter: none;
-
 }
+
+.filters{
+    font-weight: 600;
+    display: flex;
+    margin: 15px;
+    
+}
+
+.filtersOptions{
+    font-weight: 600;
+    margin-left: 15px;
+    text-align: center;
+    border:solid 1px  aliceblue
+}
+
