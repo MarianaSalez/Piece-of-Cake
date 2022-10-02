@@ -4,10 +4,10 @@ import './Footer.css';
 
 export default function Footer() {
   return (
-    <div className='row'>
-     <div>
+    <div className='rowFooter'>
+     <div className='footerAbout'>
       <Link to='/about'>
-      <h3>About Us</h3>
+      <h3 className='footerAbout'>About Us</h3>
       </Link>
       <p>Mariana Salez 2022- Todos los derechos reservados</p>
      </div>
