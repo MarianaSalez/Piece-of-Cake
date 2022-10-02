@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {API_KEY_ALL2, API_KEY_RECIPE2,API_KEY_DIET2} = process.env;
+const {API_KEY_ALL3, API_KEY_RECIPE3,API_KEY_DIET3} = process.env;
 const axios = require("axios");
 const {Recipe, Diet} =require('../db')
 const { Op, where } = require("sequelize");
@@ -8,7 +8,7 @@ const { Op, where } = require("sequelize");
 //Busqueda de todas las recetas y recetas por nombre
 
 const getAllRecipes=async function() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL2}&addRecipeInformation=true&number=18`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL3}&addRecipeInformation=true&number=18`)
    if (recepies.data.results) {
     const infoLanding=recepies.data.results.map(elem=>{
         return {
@@ -36,7 +36,7 @@ async function getNamedRecipe(name) {
 
  async function getInfoRecipe(id) {
     if(Number(id)){
-        const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE2}&addRecipeInformation=true`)
+        const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE3}&addRecipeInformation=true`)
         if(recipe.data) {
             const detail= {
                 name:recipe.data.title,
@@ -60,7 +60,7 @@ async function getNamedRecipe(name) {
         }}
         else {
             const recipeDbDetail= await Recipe.findByPk(id)
-            if(recipeDbDetail) return recipeDbDetail
+             if(recipeDbDetail&&recipeDbDetail.dataValues) return recipeDbDetail.dataValues
         }
 
     }
@@ -69,7 +69,7 @@ async function getNamedRecipe(name) {
 //Busqueda de todas las dietas y dietas por nombre
 
 async function getDiets() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET2}&addRecipeInformation=true&number=18`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET3}&addRecipeInformation=true&number=18`)
    if (recepies.data.results) {
     const repetDiets=recepies.data.results.map(elem=>elem.diets).flat()
     const dietsApi = [...new Set(repetDiets)]

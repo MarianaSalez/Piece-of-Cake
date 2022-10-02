@@ -53,7 +53,7 @@ function handleOnSelect(e) {
   dispatch(searchByDiet(value))
   setCurrentRecipes((filtered.length!==0)?filtered.slice(INITIAL_PAGE*LIMIT,LIMIT+1):
                                           recipes.slice(INITIAL_PAGE*LIMIT,LIMIT+1))
-  console.log(filtered)
+ 
 }
 
 function handlePage(e) {

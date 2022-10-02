@@ -14,9 +14,14 @@ export default function Footer() {
 
     <div>
     <h3>Contact me!</h3>
-    <div>
+    <div className='footerButtons'>
+      <a href='https://github.com/MarianaSalez'>
       <button>GIT</button>
+      </a>
+      <a href='https://www.linkedin.com/in/mariana-ines-salez-b56547144/'>
       <button>Ln</button>
+      </a>
+      
     </div>
     </div>
  

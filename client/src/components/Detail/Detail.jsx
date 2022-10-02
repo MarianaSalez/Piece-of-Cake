@@ -18,6 +18,7 @@ const {id}=useParams()
 
  const r= useSelector((state)=>state.recipe)
 
+
  
   return (
   <>
@@ -26,9 +27,9 @@ const {id}=useParams()
   <div id='recTitle'>
   <h1 className='titleDetail'>{r.name}</h1>
   <div className='dietsDetail'>
-    Dietas:
+  {r.diets?<p>Dietas:</p>: <span/>}
   {r.diets?r.diets.map((d)=><p key={d}>{d}</p>):
-  <p>Sin dietas asociadas</p>}
+  <span/>}
   </div>
  
   </div>
@@ -55,7 +56,8 @@ const {id}=useParams()
     </div>
     <div id='steps'>
       <ol>
-      {r.steps?r.steps.map((s)=><li className='liDetail'>{s.step}</li>):
+      {r.steps&&Array.isArray(r.steps)?
+      r.steps.map((s)=><li className='liDetail'>{s.step}</li>):
       <p>No se encontraron los pasos de esta receta</p>}
       </ol>
     </div>

@@ -23,7 +23,6 @@ const rootReducer = (state = initialState, action) => {
         else return {...state, filtered:action.payload, loading:false}
       
       case SEARCH_BY_DIET:
-        console.log(action.payload)
         return {...state, filtered:action.payload, loading:false}
       
       case GET_RANDOM:
