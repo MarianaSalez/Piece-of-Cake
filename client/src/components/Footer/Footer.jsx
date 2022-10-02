@@ -4,7 +4,7 @@ import './Footer.css';
 
 export default function Footer() {
   return (
-    <div className='rowFooter'>
+    <div className='row'>
      <div className='footerAbout'>
       <Link to='/about'>
       <h3 className='footerAbout'>About Us</h3>
