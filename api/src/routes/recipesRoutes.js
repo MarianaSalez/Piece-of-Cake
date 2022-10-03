@@ -19,7 +19,6 @@ router.get('/',async (req,res)=>{
             }}
     else if(diet){
         const apirecepies=await getRecipesDiet(diet)
-        console.log(apirecepies)
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
             
             else{
@@ -32,7 +31,6 @@ router.get('/',async (req,res)=>{
         if (apirecepies) return res.json(apirecepies)
         }
     } catch (error) {
-        console.log(error)
         res.status(404).json('NOT FOUND')
     }
     
@@ -44,7 +42,6 @@ router.get('/',async (req,res)=>{
         const recipeApiDetail= await getInfoRecipe(id)
         return  res.status(201).json(recipeApiDetail)}
     catch(e){
-        console.log(e)
         res.status(404).json('NOT FOUND')
     }
 
@@ -58,7 +55,6 @@ router.get('/',async (req,res)=>{
         else return res.status(404).send('Disculpe, no encontramos mas informacion de esta receta')
     }
     catch(e){
-        console.log(e)
         res.status(404).json('NOT FOUND')
     }
 
@@ -85,7 +81,6 @@ router.get('/',async (req,res)=>{
         
     res.status(201).send(`Receta ${newRecipe.name} creada correctamente`)
     } catch (error) {
-        console.log(error)
         res.status(404).json('NOT FOUND')
     }
 })

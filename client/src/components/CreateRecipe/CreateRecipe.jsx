@@ -75,8 +75,7 @@ const previewFile=(file)=>{
   let handleOnChange=(e)=>{
     setData({...data,
       [e.target.name]:e.target.value})
-      console.log(data)
-
+   
       setError(
         validate({...data,
           [e.target.name]:e.target.value})

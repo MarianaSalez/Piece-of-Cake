@@ -77,7 +77,8 @@ const rootReducer = (state = initialState, action) => {
         })
       }
     }
-      return {...state, recipes:sorted, loading:false}
+    if(state.filteredCond)return {...state, filtered:sorted, loading:false}
+    else return {...state, recipes:sorted, loading:false}
       
 
       case GET_DIETS:

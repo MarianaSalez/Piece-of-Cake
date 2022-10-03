@@ -17,9 +17,7 @@ const {id}=useParams()
 
 
  const r= useSelector((state)=>state.recipe)
-console.log(r)
-console.log((r.steps))
-console.log(typeof(r.steps))
+
 
  
   return (
