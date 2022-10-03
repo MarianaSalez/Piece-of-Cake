@@ -20,7 +20,7 @@ export default function Home() {
   const recipes= useSelector(state=>state.recipes)
   const filtered= useSelector(state=>state.filtered)
   const diets= useSelector(state=>state.diets)
-  // const notFound= useSelector(state=>state.notFound)
+
 
   //ACTUALIZACION DE PAGINA
   useEffect(()=>{
@@ -63,9 +63,6 @@ function handlePage(e) {
     return page-1})
   }
   else if(e.target.value.includes('next')&&page<((Math.round(((filtered.length!==0)?filtered.lenght:recipes?.length)/LIMIT))-1)){ 
-    console.log(e.target.value.includes('next'))
-    console.log('entre a next')
-    console.log(page)
     setPage(()=>{return page+1})}
   else if(e.target.value!=='back'&&e.target.value!=='next') {setPage(()=>{return value[0]})}
   else {return page}

@@ -134,8 +134,7 @@ const previewFile=(file)=>{
    
 
   let handleOnSubmit=(e)=> {
-    
-    console.log(data)
+
     dispatch(createRecipe(data))
     setData({
       name:'',
@@ -157,7 +156,6 @@ const previewFile=(file)=>{
     let handleNewDietInput=(e)=>{
         (e).preventDefault()
         setSelfDiet(e.target.value)
-        console.log(selfDiet)
     }
 
     

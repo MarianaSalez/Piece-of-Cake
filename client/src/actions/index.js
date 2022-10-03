@@ -24,7 +24,6 @@ export function searchByName(name){
     console.log('i will search by name')
     return async function (dispatch) {
         let json = await axios.get("http://localhost:3001/recipes?name="+name);
-        console.log('json')
         if(json==='NOT FOUND') return{type:CHANGE_FOUND}
         else return dispatch({ type: SEARCH_BY_NAME, payload: json.data });
       };

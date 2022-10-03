@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {API_KEY_ALL4, API_KEY_RECIPE4,API_KEY_DIET4} = process.env;
+const {API_KEY_ALL5, API_KEY_RECIPE5,API_KEY_DIET5} = process.env;
 const axios = require("axios");
 const {Recipe, Diet} =require('../db')
 const { Op, where } = require("sequelize");
@@ -8,7 +8,7 @@ const { Op, where } = require("sequelize");
 //Busqueda de todas las recetas y recetas por nombre
 
 const getAllRecipes=async function() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL4}&addRecipeInformation=true&number=18`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_ALL5}&addRecipeInformation=true&number=18`)
    if (recepies.data.results) {
     const infoLanding=recepies.data.results.map(elem=>{
         return {
@@ -36,7 +36,7 @@ async function getNamedRecipe(name) {
 
  async function getInfoRecipe(id) {
     if(Number(id)){
-        const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE4}&addRecipeInformation=true`)
+        const recipe = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY_RECIPE5}&addRecipeInformation=true`)
         if(recipe.data) {
             const detail= {
                 name:recipe.data.title,
@@ -69,7 +69,7 @@ async function getNamedRecipe(name) {
 //Busqueda de todas las dietas y dietas por nombre
 
 async function getDiets() {
-    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET4}&addRecipeInformation=true&number=18`)
+    const recepies = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_DIET5}&addRecipeInformation=true&number=18`)
    if (recepies.data.results) {
     const repetDiets=recepies.data.results.map(elem=>elem.diets).flat()
     const dietsApi = [...new Set(repetDiets)]
@@ -90,7 +90,6 @@ async function getRecipesDiet(diet){
     const infoLanding= await getAllRecipes()
     const apiDietRecipes=infoLanding.filter((e)=>e.diets.includes(diet)
         )
-        console.log(diet)
 
     const recipesWithDiets= await Recipe.findAll({include:{
         model: Diet,

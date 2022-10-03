@@ -9,7 +9,8 @@ const initialState = {
   recipes: [],
   filtered:[],
   diets: [],
-  notFound:false
+  notFound:false,
+  filteredCond:false
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -20,11 +21,11 @@ const rootReducer = (state = initialState, action) => {
       
       case SEARCH_BY_NAME:
         if (typeof(action.payload)==='string') return{...state, notFound:true}
-        else return {...state, filtered:action.payload, loading:false}
+        else return {...state, filtered:action.payload, loading:false, filteredCond:true}
       
       case SEARCH_BY_DIET:
 
-        return {...state, filtered:action.payload, loading:false}
+        return {...state, filtered:action.payload, loading:false, filteredCond:true}
       
       case GET_RANDOM:
         return {...state, recipe:action.payload, loading:false}
@@ -36,11 +37,11 @@ const rootReducer = (state = initialState, action) => {
         return {...state, recipes: [...state.recipes, action.payload], loading:false}
      
       case CLEAN_FILTER:
-        return {...state, filtered:[], loading:false, notFound:false}
+        return {...state, filtered:[], loading:false, notFound:false, filteredCond:false}
       
       
-        case SORT:
-      const sorted =  state.recipes
+      case SORT:
+      const sorted =  (state.filteredCond)? state.filtered:state.recipes
 
       if (sorted.length!==0){
         if(action.payload === "ascHealth"){
