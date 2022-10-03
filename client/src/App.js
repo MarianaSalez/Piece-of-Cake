@@ -10,23 +10,27 @@ import Footer from './components/Footer/Footer';
 import About from './components/About/About';
 import RandomRecipe from './components/RandomRecipe/RandomRecipe';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NotFound from './components/NotFound/NotFound';
 
 
 function App() {
   const loading = useSelector((state) => state.loading)
+  const notFound = useSelector((state) => state.notFound)
   return (
     <>
     {
     (loading)?
     <BrowserRouter>
     <Landing />
-    {/* <Routes>
-      <Route path="/" element={<Landing />}/>
-    </Routes>    */}
+    </BrowserRouter>
+    :
+    (notFound)?
+    <BrowserRouter>
+    <NotFound />
     </BrowserRouter>
     :
     <>
-    
+  
     <BrowserRouter >
     <Nav/>
     <Routes>

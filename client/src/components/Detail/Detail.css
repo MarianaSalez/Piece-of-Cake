@@ -5,7 +5,6 @@
     padding:20px;
     contain: content;
     display: grid;
-    display: grid;
     grid-template-areas:
 "recTitle recTitle  recScore"
 "description description description"
@@ -124,3 +123,23 @@ div#recimage{
     margin-bottom: 10px;
 }
 
+.detailLoadingImage{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    height: 250px;
+    width: 350px;
+}
+
+.backDetailLoading{
+    background-image:url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663625355/PI-FOOD/Background-min_dpneso.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    contain: content;
+    align-items: center;
+    color: aliceblue;
+    font-size: 1.2em;
+    padding: 1% 0% ;
+}

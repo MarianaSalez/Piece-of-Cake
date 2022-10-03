@@ -9,6 +9,7 @@ export const SORT = "SORT";
 export const CLEAN_FILTER = "CLEAN_FILTER";
 export const GET_DIETS = "GET_DIETS";
 export const CHANGE_LOADING = "CHANGE_LOADING";
+export const CHANGE_FOUND="CHANGE_FOUND"
 
 const jsonbak=[
    
@@ -16595,9 +16596,12 @@ export function getAllRecipes(){
 }
 
 export function searchByName(name){
+    console.log('i will search by name')
     return async function (dispatch) {
         let json = await axios.get("http://localhost:3001/recipes?name="+name);
-        return dispatch({ type: SEARCH_BY_NAME, payload: json.data });
+        console.log('json')
+        if(json==='NOT FOUND') return{type:CHANGE_FOUND}
+        else return dispatch({ type: SEARCH_BY_NAME, payload: json.data });
       };
 
 }
@@ -16614,7 +16618,6 @@ export function getRandom(){
     return async function (dispatch) {
         console.log('entre en funcion getRandom')
         let json = await axios.get("http://localhost:3001/recipes/random");
-        console.log(json)
         return dispatch({ type: GET_RANDOM, payload: json.data });
       };
 }
@@ -16654,3 +16657,5 @@ export function getDiets(){
 export const changeLoagind = () => {
     return{type:CHANGE_LOADING}}
 
+export const changeFound = () => {
+        return{type:CHANGE_FOUND}}

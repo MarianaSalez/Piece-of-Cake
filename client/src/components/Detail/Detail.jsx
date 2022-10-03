@@ -17,7 +17,9 @@ const {id}=useParams()
 
 
  const r= useSelector((state)=>state.recipe)
-
+console.log(r)
+console.log((r.steps))
+console.log(typeof(r.steps))
 
  
   return (
@@ -58,15 +60,22 @@ const {id}=useParams()
       <ol>
       {r.steps&&Array.isArray(r.steps)?
       r.steps.map((s)=><li className='liDetail'>{s.step}</li>):
-      <p>No se encontraron los pasos de esta receta</p>}
+      (typeof(r.steps)==='string')?
+      <>
+      <p>{r.steps.replace("{", "").replace("}", "")}</p>
+      </>
+      :
+        <p>No se encontraron los pasos de esta receta</p>}
       </ol>
     </div>
     </div>:
-    <p>
-      <img src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1664649018/PI-FOOD/wock_loading_cgrkh6.gif' alt='Loading'/>
-    </p>
 
-
+    <div  className='backDetailLoading'>
+      <h1>Loading...</h1>
+        <p>
+          <img className='detailLoadingImage' src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1664649018/PI-FOOD/wock_loading_cgrkh6.gif' alt='Loading'/>
+        </p>
+    </div>
   }
     
    

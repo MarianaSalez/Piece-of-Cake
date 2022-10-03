@@ -15,7 +15,7 @@ router.get('/',async (req,res)=>{
             const apirecepies=await getNamedRecipe(name)
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
             else{
-            res.status(401).send('Disculpe, no encontramos coincidencia. Pruebe con otra receta')
+                res.json('NOT FOUND')
             }}
     else if(diet){
         const apirecepies=await getRecipesDiet(diet)
@@ -23,7 +23,7 @@ router.get('/',async (req,res)=>{
             if (apirecepies&&apirecepies.length!==0) return  res.status(200).json(apirecepies)
             
             else{
-            res.status(401).send('Disculpe, no encontramos coincidencia.')
+            res.json('NOT FOUND')
             }
 
     }
@@ -32,21 +32,20 @@ router.get('/',async (req,res)=>{
         if (apirecepies) return res.json(apirecepies)
         }
     } catch (error) {
-        //Puedo ver de enviar imagen not found
         console.log(error)
-        res.status(404).send(e)
+        res.status(404).json('NOT FOUND')
     }
     
 })
 
 .get('/random',async (req,res)=>{
     try{
-        const id =Math.floor(Math.random() *10)
-        //CAMBIAR A 100
+        const id =Math.floor(Math.random() *100)
         const recipeApiDetail= await getInfoRecipe(id)
         return  res.status(201).json(recipeApiDetail)}
     catch(e){
-        res.status(404).send(e)
+        console.log(e)
+        res.status(404).json('NOT FOUND')
     }
 
 } )
@@ -60,7 +59,7 @@ router.get('/',async (req,res)=>{
     }
     catch(e){
         console.log(e)
-        res.status(404).send(e)
+        res.status(404).json('NOT FOUND')
     }
 
 
@@ -87,7 +86,7 @@ router.get('/',async (req,res)=>{
     res.status(201).send(`Receta ${newRecipe.name} creada correctamente`)
     } catch (error) {
         console.log(error)
-        res.status(404).send(error)
+        res.status(404).json('NOT FOUND')
     }
 })
 

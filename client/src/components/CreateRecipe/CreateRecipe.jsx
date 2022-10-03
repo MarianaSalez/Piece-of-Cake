@@ -5,6 +5,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { getDiets } from '../../actions';
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom'
 
 
 
@@ -22,11 +23,11 @@ function validate(data) {
 
   if(data.healthScore>100||data.healthScore<0) errores.healthScore='The health Score range is between 0-100. Enter a valid value'
   
-  if(!data.steps) errores.steps='Enter the steps we must folow to make this recipe'
+  if(data.steps.length===0) errores.steps='Enter the steps we must folow to make this recipe'
 
   if(!data.image) errores.image='Please upload this recipe image, it is nice to see what we are going to prepare'
 
-  if(data.diets.length===0) errores.diets='Please select at least one diet'
+  if(!data.diets.length) errores.diets='Please select at least one diet'
   
   return errores}
 
@@ -34,8 +35,6 @@ export default function CreateRecipe() {
 
   const dispatch=useDispatch()
   const diets= useSelector(state=>state.diets)
-
-
   const [error, setError]=useState({})
   const[data, setData]=useState({
     name:'',
@@ -67,6 +66,7 @@ const previewFile=(file)=>{
 }
 
   useEffect(()=>{
+    document.getElementById("myBtn").disabled = true;
     dispatch(getDiets())
   },[dispatch])
   
@@ -167,26 +167,26 @@ const previewFile=(file)=>{
     <div className='formContainer'>
      <form className='form'  onChange={handleOnSubmitButton}>
       <div id="header" >
-        <label>Recipe Name:  {error.name&&<p className='error'>{error.name}</p>} </label>
+        <label>Recipe Name:  {error.name&&<p className='error'>❌ {error.name}</p>} </label>
         <input className='title' onChange={handleOnChange} name='name' value={data.name}></input>
      
       </div>
       
       <div id='aside_Score'>
-      <label>score: </label>
+      <label>score: {error.score&&<p className='error'> ❌ {error.score}</p>} </label>
       <input className='score' onChange={handleOnChange} type='number' name='score' value={data.score}></input>
-      {error.score&&<p className='error'>{error.score}</p>}
-      <label>Health Score:  </label>
+      
+      <label>Health Score:  {error.healthScore&&<p className='error'> ❌ {error.healthScore}</p>} </label>
       <input  className='score' onChange={handleOnChange} type='number' name='healthScore' value={data.healthScore}></input>
-      {error.healthScore&&<p className='error'>{error.healthScore}</p>}
+      
       </div>
 
       <div id='body_form'>
-      <label>Summary: {error.summary&&<p className='error'>{error.summary}</p>} </label>
+      <label>Summary: {error.summary&&<p className='error'> ❌ {error.summary}</p>} </label>
       <textarea onChange={handleOnChange} className='textArea' name='summary' value={data.summary} />
       
 
-      <label>Steps: {error.steps&&<p className='error'>{error.steps}</p>}</label>
+      <label>Steps: {error.steps&&<p className='error'> ❌ {error.steps}</p>}</label>
       <textarea onChange={handleSteps} className='textArea' name='steps' value={data.steps}/>
       
       </div>
@@ -198,12 +198,12 @@ const previewFile=(file)=>{
           <img src={previewSource} alt='chosenOne' style={{height:'250px', margin: '10px', width: '250px', border:'solid black'
         }}/>
         ):<div className='boxImage'>Preview</div>}
+        {error.image&&<p className='error'>❌ {error.image}</p>}
         <button onClick={handleImage}>Upload Image</button>
-        {error.image&&<p>{error.image}</p>}
         </div>
      
      <div id='dietsArea'>
-    <label id='title'>Diets  {error.diets&&<p>{error.diets}</p>}</label>
+    <label id='title'>Diets  {error.diets&&<p className='error'>❌{error.diets}</p>}</label>
     <div id='buttons'>
       {diets&&diets.map((d)=>
         <div className='dietsButtons' key={d}>{d} <input onChange={handleSelectedDiets} type='checkbox' value={d}></input></div>)}
@@ -211,8 +211,11 @@ const previewFile=(file)=>{
     </div>
      </div>
 
+
      <div id='createButton'>
+     <Link to='/recipes'>
         <button className='submitButton' id="myBtn" type="submit" onClick={handleOnSubmit} >Create</button>
+      </Link>
       </div>
 
      </form>

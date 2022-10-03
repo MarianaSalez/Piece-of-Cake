@@ -17,7 +17,6 @@ export default function SearchBar() {
   }
 
   function handleButton(e) {
-    console.log('lo envie')
     e.preventDefault();
     dispatch(searchByName(name))
   }

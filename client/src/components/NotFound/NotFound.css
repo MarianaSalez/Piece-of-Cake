@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+.containerNotFound{
+    margin:0%;
+    background-image: url(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663620270/PI-FOOD/Landing_page_image2_zkviqw.jpg);
+    background-size: cover;
+    height: 100vh;
+    background-position: center center;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+}
+.titleNotFound{
+    font-family: 'Caveat', cursive;
+    color: aliceblue;
+    font-size: 3.5rem;
+}
+
+.imgNotFound{
+    height: 25vw;
+    width: 45vh;
+    margin-bottom: 25px;
+}
+
+.backNotFound{
+    font-size: 2em;
+    background-color: brown;
+    color: aliceblue;
+    margin-top: 70%;
+}

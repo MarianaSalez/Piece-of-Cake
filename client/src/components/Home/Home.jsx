@@ -101,10 +101,12 @@ function clearFilters(e) {
         
     </div>
     </div>
-    <div className='home'>
+    
       {/* {notFound?
       <h1>Disculpe las molestias la receta no fue encontrada</h1>: }*/
-        currentRecipes.length!==0&&currentRecipes.map((r)=>{
+        currentRecipes.length!==0?
+        <div className='home'>
+        {currentRecipes.map((r)=>{
           return(
         
        <RecipeCard
@@ -113,11 +115,18 @@ function clearFilters(e) {
         name={r.name}
         image={r.image}
         diets={r.diets}/>
-       
           )
-        })
+        })}
+         </div>:
+        
+    <div  className='backHomeLoading'>
+      <h1>Loading...</h1>
+        <p>
+          <img className='homeLoadingImage' src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1664649018/PI-FOOD/wock_loading_cgrkh6.gif' alt='Loading'/>
+        </p>
+    </div>
       }
-       </div>
+      
       <div>
         <Pagination recipes={(filtered.length!==0)?filtered.lenght:recipes?.length} paginate={(e)=>handlePage(e)} recipesPerPage={LIMIT}/>
       </div>

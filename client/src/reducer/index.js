@@ -1,6 +1,6 @@
 
 // Importa las actions types que necesites acá:
-import {GET_ALL_RECIPES, SEARCH_BY_NAME, SEARCH_BY_DIET, GET_RANDOM, GET_DETAIL, CREATE_RECIPE, SORT, GET_DIETS,CHANGE_LOADING, CLEAN_FILTER} from "../actions";
+import {GET_ALL_RECIPES, SEARCH_BY_NAME, SEARCH_BY_DIET, GET_RANDOM, GET_DETAIL, CREATE_RECIPE, SORT, GET_DIETS,CHANGE_LOADING, CLEAN_FILTER,CHANGE_FOUND} from "../actions";
 
 
 const initialState = {
@@ -23,6 +23,7 @@ const rootReducer = (state = initialState, action) => {
         else return {...state, filtered:action.payload, loading:false}
       
       case SEARCH_BY_DIET:
+
         return {...state, filtered:action.payload, loading:false}
       
       case GET_RANDOM:
@@ -83,6 +84,9 @@ const rootReducer = (state = initialState, action) => {
       
       case CHANGE_LOADING:
         return {...state, loading:(!state.loading)}
+
+        case CHANGE_FOUND:
+          return {...state, notFound:(!state.notFound)}
     
       default:
         return state
