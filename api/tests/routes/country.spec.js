@@ -6,9 +6,10 @@ const { Recipe, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const recipe = {
-  name: 'Milanea a la napolitana',
+  name: 'Milanesa',
   summary:'This is the tipical Argentinian food'
-};
+}
+;
 
 describe('Recipe routes', () => {
   before(() => conn.authenticate()
@@ -22,4 +23,13 @@ describe('Recipe routes', () => {
       agent.get('/recipes').expect(200)
     );
   });
+  describe('GET/recipes?',()=>{
+    it('should get 200',()=>
+    agent.get('/recipes?name=Milanesa').expect(200)
+   )
+  
+  })
+
+
+  
 });

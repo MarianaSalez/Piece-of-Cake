@@ -56,9 +56,14 @@ export default function RandomRecipe() {
         </ol>
       </div>
       </div>:
-      <p>
-        <img src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1664649018/PI-FOOD/wock_loading_cgrkh6.gif' alt='Loading'/>
-      </p>
+
+    <div  className='backRandomLoading'>
+      <h1>Loading...</h1>
+       <p>
+          <img className='randomLoadingImage' src='https://res.cloudinary.com/dvkvyi1dr/image/upload/v1664649018/PI-FOOD/wock_loading_cgrkh6.gif' alt='Loading'/>
+        </p>
+    </div>
+     
   
   
     }

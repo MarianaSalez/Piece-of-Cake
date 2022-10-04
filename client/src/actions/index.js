@@ -21,7 +21,6 @@ export function getAllRecipes(){
 }
 
 export function searchByName(name){
-    console.log('i will search by name')
     return async function (dispatch) {
         let json = await axios.get("http://localhost:3001/recipes?name="+name);
         if(json==='NOT FOUND') return{type:CHANGE_FOUND}
@@ -40,7 +39,6 @@ export function searchByDiet(name){
 
 export function getRandom(){
     return async function (dispatch) {
-        console.log('entre en funcion getRandom')
         let json = await axios.get("http://localhost:3001/recipes/random");
         return dispatch({ type: GET_RANDOM, payload: json.data });
       };
