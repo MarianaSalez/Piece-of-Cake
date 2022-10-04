@@ -31,7 +31,7 @@ router.get('/',async (req,res)=>{
         if (apirecepies) return res.status(200).json(apirecepies)
         }
     } catch (error) {
-        res.status(404).json('NOT FOUND')
+        res.status(404).json(error)
     }
     
 })
