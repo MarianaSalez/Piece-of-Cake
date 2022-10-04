@@ -28,7 +28,7 @@ router.get('/',async (req,res)=>{
     }
     else{
         const apirecepies=await getAllRecipes()
-        if (apirecepies) return res.json(apirecepies)
+        if (apirecepies) return res.status(200).json(apirecepies)
         }
     } catch (error) {
         res.status(404).json('NOT FOUND')
@@ -40,7 +40,7 @@ router.get('/',async (req,res)=>{
     try{
         const id =Math.floor(Math.random() *100)
         const recipeApiDetail= await getInfoRecipe(id)
-        return  res.status(201).json(recipeApiDetail)}
+        return  res.status(200).json(recipeApiDetail)}
     catch(e){
         res.status(404).json('NOT FOUND')
     }
@@ -51,7 +51,7 @@ router.get('/',async (req,res)=>{
     try{
         const {idReceta} =req.params
         const recipeApiDetail= await getInfoRecipe(idReceta)
-        if (recipeApiDetail)  {return  res.status(201).json(recipeApiDetail)}
+        if (recipeApiDetail)  {return  res.status(200).json(recipeApiDetail)}
         else return res.status(404).send('Disculpe, no encontramos mas informacion de esta receta')
     }
     catch(e){
@@ -69,19 +69,20 @@ router.get('/',async (req,res)=>{
         const newRecipe= await Recipe.create({
         name, summary,score, healthScore, steps, image
         })
+
         diets.forEach(async (d) => {
             const dbDiet = await Diet.findOrCreate({
               where: {
                 name: d,
               },
             });
-            newRecipe.setDiets(dbDiet[0].dataValues.id)
+            newRecipe.addDiets(dbDiet[0].dataValues.id)
           });
-    
+  
         
-    res.status(201).send(`Receta ${newRecipe.name} creada correctamente`)
+    res.status(200).send(`Receta ${newRecipe.name} creada correctamente`)
     } catch (error) {
-        res.status(404).json('NOT FOUND')
+        res.status(404).json(error)
     }
 })
 

@@ -18,7 +18,6 @@ const {id}=useParams()
 
  const r= useSelector((state)=>state.recipe)
 
-
  
   return (
   <>
@@ -47,7 +46,6 @@ const {id}=useParams()
     <ul className='listIng' >
     {r.ingredients?r.ingredients.map((i)=>
       <li>
-        {/* <img src={i.img}/> */}
         {`${i.cant} ${i.un} ${i.name} `}
       </li>):
       <li> Disculpe no se encuentran los Ingredientes</li>}
@@ -56,8 +54,10 @@ const {id}=useParams()
     </div>
     <div id='steps'>
       <ol>
-      {r.steps&&Array.isArray(r.steps)?
+      {r.steps&&Array.isArray(r.steps)&&(r.steps[0].hasOwnProperty("step"))?
       r.steps.map((s)=><li className='liDetail'>{s.step}</li>):
+      r.steps&&Array.isArray(r.steps)?
+      r.steps.map((s)=><li className='liDetail'>{s}</li>):
       (typeof(r.steps)==='string')?
       <>
       <p>{r.steps.replace("{", "").replace("}", "")}</p>

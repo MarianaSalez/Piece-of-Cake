@@ -99,8 +99,7 @@ function clearFilters(e) {
     </div>
     </div>
     
-      {/* {notFound?
-      <h1>Disculpe las molestias la receta no fue encontrada</h1>: }*/
+      {
         currentRecipes.length!==0?
         <div className='home'>
         {currentRecipes.map((r)=>{
@@ -125,7 +124,7 @@ function clearFilters(e) {
       }
       
       <div>
-        <Pagination recipes={(filtered.length!==0)?filtered.lenght:recipes?.length} paginate={(e)=>handlePage(e)} recipesPerPage={LIMIT}/>
+        <Pagination recipes={(filtered.length!==0)?filtered.length:recipes?.length} paginate={(e)=>handlePage(e)} recipesPerPage={LIMIT}/>
       </div>
 
     </div>

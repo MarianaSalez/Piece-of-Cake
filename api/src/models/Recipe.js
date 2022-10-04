@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     summary: {
-      type: DataTypes.STRING(1500),
+      type: DataTypes.STRING(1500) ,
       allowNull: false,
     },
     score: {
@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
     },
 
     steps: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING(1500)),
     },
 
     image:{

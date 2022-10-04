@@ -15,7 +15,7 @@ describe('Diet model', () => {
           .catch(() => done());
       });
       it('should work when its a valid name', (done) => {
-        Recipe.create({ name: 'Comida de la yiya' })
+        Diet.create({ name: 'Comida de la yiya' })
         .then(() => done());
       });
     });

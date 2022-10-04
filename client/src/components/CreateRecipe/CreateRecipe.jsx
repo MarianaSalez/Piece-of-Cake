@@ -5,7 +5,8 @@ import { useDispatch,useSelector } from 'react-redux';
 import { getDiets } from '../../actions';
 import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -27,7 +28,7 @@ function validate(data) {
 
   if(!data.image) errores.image='Please upload this recipe image, it is nice to see what we are going to prepare'
 
-  if(!data.diets.length) errores.diets='Please select at least one diet'
+  if(data.diets.length===0) errores.diets='Please select at least one diet'
   
   return errores}
 
@@ -133,7 +134,6 @@ const previewFile=(file)=>{
    
 
   let handleOnSubmit=(e)=> {
-
     dispatch(createRecipe(data))
     setData({
       name:'',
@@ -143,7 +143,9 @@ const previewFile=(file)=>{
       steps:[],
       image:'',
       diets:[],
-    })}
+    })
+  alert('Receta Creada!')
+  }
 
   function handleOnSubmitButton(e) {
     e.preventDefault();
@@ -210,9 +212,9 @@ const previewFile=(file)=>{
 
 
      <div id='createButton'>
-     <Link to='/recipes'>
+        <Link to='/recipes'>
         <button className='submitButton' id="myBtn" type="submit" onClick={handleOnSubmit} >Create</button>
-      </Link>
+        </Link>
       </div>
 
      </form>
