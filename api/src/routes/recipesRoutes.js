@@ -61,6 +61,17 @@ router.get('/',async (req,res)=>{
 
 })
 
+.delete('/:idReceta', async(req, res)=>{
+    try{
+        const {idReceta} =req.params
+        const recipeDbDestoyed= await Recipe.findByPk(idReceta)
+        await recipeDbDestoyed.destroy()
+        res.send(`Se elimino correctamente`)
+    }
+    catch(e){
+        res.status(404).json('NOT FOUND')
+    }
+})
 
 .post('/create', async(req, res)=>{
     try {

@@ -15,14 +15,14 @@ export const CHANGE_FOUND="CHANGE_FOUND"
 
 export function getAllRecipes(){
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/recipes");
+        let json = await axios.get("/recipes");
         return dispatch({ type: GET_ALL_RECIPES, payload: json.data });
       };
 }
 
 export function searchByName(name){
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/recipes?name="+name);
+        let json = await axios.get("/recipes?name="+name);
         if(json==='NOT FOUND') return{type:CHANGE_FOUND}
         else return dispatch({ type: SEARCH_BY_NAME, payload: json.data });
       };
@@ -31,7 +31,7 @@ export function searchByName(name){
 
 export function searchByDiet(name){
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/recipes?diet="+name);
+        let json = await axios.get("/recipes?diet="+name);
         return dispatch({ type: SEARCH_BY_DIET, payload: json.data });
       };
     
@@ -39,14 +39,14 @@ export function searchByDiet(name){
 
 export function getRandom(){
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/recipes/random");
+        let json = await axios.get("/recipes/random");
         return dispatch({ type: GET_RANDOM, payload: json.data });
       };
 }
 
 export function getDetail(id){
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/recipes/"+id);
+        let json = await axios.get("/recipes/"+id);
         return dispatch({ type: GET_DETAIL, payload: json.data });
       };
 }
@@ -54,7 +54,7 @@ export function getDetail(id){
 
 export function createRecipe(data){
     return async function () {
-        let json = await axios.post("http://localhost:3001/recipes/create",data);
+        let json = await axios.post("/recipes/create",data);
         return json;
       };
 }
@@ -69,7 +69,7 @@ export const cleanFilter = () => {
 
 export function getDiets(){
     return async function (dispatch) {
-        let json = await axios.get("http://localhost:3001/diets");
+        let json = await axios.get("/diets");
         return dispatch({ type: GET_DIETS, payload: json.data });
         };
     }
