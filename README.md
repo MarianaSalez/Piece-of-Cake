@@ -1,4 +1,6 @@
-![Marian Banner](https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668721607/cv/Presentaci%C3%B3n_Tecnolog%C3%ADa_Azul_Elementos_Isom%C3%A9tricos_y_Modelos_Tecnolog%C3%ADa_en_la_Educaci%C3%B3n_1_p5qq5s.jpg)
+![Marian Banner]
+ <img height="200" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668721607/cv/Presentaci%C3%B3n_Tecnolog%C3%ADa_Azul_Elementos_Isom%C3%A9tricos_y_Modelos_Tecnolog%C3%ADa_en_la_Educaci%C3%B3n_1_p5qq5s.jpg" />
+(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668721607/cv/Presentaci%C3%B3n_Tecnolog%C3%ADa_Azul_Elementos_Isom%C3%A9tricos_y_Modelos_Tecnolog%C3%ADa_en_la_Educaci%C3%B3n_1_p5qq5s.jpg)
 
 # Individual Project - Henry Food
 
