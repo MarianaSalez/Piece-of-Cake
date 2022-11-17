@@ -1,13 +1,17 @@
-![Marian Banner]
- <img height="200" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668721607/cv/Presentaci%C3%B3n_Tecnolog%C3%ADa_Azul_Elementos_Isom%C3%A9tricos_y_Modelos_Tecnolog%C3%ADa_en_la_Educaci%C3%B3n_1_p5qq5s.jpg" />
-(https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668721607/cv/Presentaci%C3%B3n_Tecnolog%C3%ADa_Azul_Elementos_Isom%C3%A9tricos_y_Modelos_Tecnolog%C3%ADa_en_la_Educaci%C3%B3n_1_p5qq5s.jpg)
+<p align="center">
+ <img style="width:65%"  src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668723108/cv/banner_name_rostr1.jpg" />
+</p> 
 
-# Individual Project - Henry Food
+# Individual Project - Piece of Cake
 
 <p align="right">
-  <img height="200" src="./cooking.png" />
+  <img height="200" border-radius:50 src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663372772/PI-FOOD/logo_food_api_ytyqfh.jpg" />
 </p>
-
+<p align="left">
+  The primary function of this page is to get recipes. 
+      It has also some extra functions like adding new recipes, or getting a random if you don't want 
+      to think any more and just cook.
+</p>
 ## Objetivos del Proyecto
 
 - Construir una App utlizando React, Redux, Node y Sequelize.
