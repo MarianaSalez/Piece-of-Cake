@@ -36,7 +36,8 @@ _
 - [ ] Cloudinary
 
 ## EJECUCION DE LA APP ⚙️
-<div align="center"><img src="https://res.cloudinary.com/dvkvyi1dr/video/upload/v1669070745/cv/2022-10-06_18-08-25_Trim_njp8t5.mp4" width="50%" ></div>
+<div align="center">
+ <img src="https://res.cloudinary.com/dvkvyi1dr/video/upload/v1669074310/2022-10-06_18-08-25_rgtg8o.gif" alt="gif"></div>
 
 
 
