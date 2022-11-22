@@ -37,7 +37,19 @@ _
 
 ## EJECUCION DE LA APP ⚙️
 <div align="center">
- <img src="https://res.cloudinary.com/dvkvyi1dr/video/upload/v1669074310/2022-10-06_18-08-25_rgtg8o.gif" alt="gif"></div>
+ 
+  <img width="45%" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/c_scale,h_605/v1669075315/landingpieceofcake_hlm64d.jpg" alt="landing">
+  <img width="45%" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1669075315/homepieceof_cake_eje049.jpg" alt="home">
+  <img width="45%" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1669075316/detail_piece_of_cake_zaqlto.jpg" alt="detail">
+  <img width="45%" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1669075315/form_piece_zdstm7.jpg" alt="form">
+  <img width="45%" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1669075315/about_me_f4giwb.jpg" alt="about">
+ 
+
+Gif de Funcionalidad: 
+ 
+ https://res.cloudinary.com/dvkvyi1dr/video/upload/v1669074310/2022-10-06_18-08-25_rgtg8o.mkv
+
+</div>
 
 
 
