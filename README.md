@@ -1,7 +1,7 @@
 <p align="center">
- <img style="width:75%"  height="180" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668723108/cv/banner_name_rostr1.jpg" />
+ <img style="width:65%"  height="150" src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1668723108/cv/banner_name_rostr1.jpg" />
  
-  <img height="180" border-radius:50 src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663372772/PI-FOOD/logo_food_api_ytyqfh.jpg" />
+  <img style="width:25%" height="150" border-radius:50 src="https://res.cloudinary.com/dvkvyi1dr/image/upload/v1663372772/PI-FOOD/logo_food_api_ytyqfh.jpg" />
 </p> 
 
 
